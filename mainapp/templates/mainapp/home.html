@@ -1,0 +1,54 @@
+{% extends 'mainapp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<main class="container-main">
+    <section class="wrapper-section">
+        <h1>Загрузить отчёт</h1>
+        <div>
+            <form action="{% url 'home' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            
+                <div class="form-operation_group">
+                    <label for="selectedDeal">Сделки</label>
+                    <input type="text" id="selectedDeal" name="reports" placeholder="Введите сделку" />
+                    <div id="dealPopup" class="popup" style="display: none;">
+                
+                        {% for deal_name in deal_names %}
+                            <div class="popup-item" data-value="{{ deal_name }}">{{ deal_name }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                      
+                <div class="form-operation_group">
+                    <label for="selectedCounterparty">Контрагенты</label>
+                    <input type="text" id="selectedCounterparty" name="counterparty" placeholder="Введите контрагента" />
+                    <div id="counterpartyPopup" class="popup" style="display: none;">
+                
+                        {% for counterparty in counterparty_names %}
+                            <div class="popup-item" data-value="{{ counterparty }}">{{ counterparty }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                      
+                <div class="form-operation_group">
+                    <label>Сумма операции</label>
+                    {{ form.value }}
+                </div>
+                <div class="form-operation_group">
+                    <label>Назначения платежа</label>
+                    {{ form.description }}
+                </div>
+                <div class="form-operation_group">
+                    <label>Чек (изображения)</label>
+                    {{ form.image_cheque }}
+                </div>
+                <input class="btn--submit_reports" type="submit" value="Отправить отчёт">
+            </form>
+            
+        </div>
+    </section>
+</main>
+<script src="{% static 'js/search.js' %}"></script>
+{% endblock %}

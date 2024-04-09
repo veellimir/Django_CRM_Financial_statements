@@ -1,0 +1,36 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+<main>
+    <h1 class="title-h1_reports">Мои отчёты</h1>
+    <section>
+        <div>
+            <div>
+                <ul class="ul-title__reports">
+                    <li>Наименоание сделки</li>
+                    <li>Контрагент</li>
+                    <li>Категория</li>
+                    <li>Дата</li>
+                    <li>Сумма затрат</li>
+                    <li>Описание</li>
+                    <li>Чек</li>
+                </ul>
+            </div>
+            {% for report in user_operations %}
+            <div>
+                <p>{{ report.reports }}</p>
+            </div>
+            <div>
+                <p>- {{ report.value }} руб.</p>
+            </div>
+            <div>
+                {{ report.description }}
+            </div>
+            <div>
+                <img class="reports_image" src="{{ report.image_cheque.url }}" alt="Изображение отчёта">
+            </div>
+            {% endfor %}    
+        </div>
+    </section>
+</main>
+{% endblock %}

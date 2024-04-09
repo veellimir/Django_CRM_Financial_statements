@@ -1,0 +1,33 @@
+:root {
+    --main_color: #007aff;
+    --auth_form: #0c5274;
+    --white: #fff;
+
+    --success: #085e17;
+  }
+  #icon-moon {display: none;}
+  body,
+  #nav-sidebar,
+  .paginator,
+  .form-row,
+  .vLargeTextField,
+  #id_tags {
+    background: #121212;
+  }
+
+  #header, 
+  #content-main caption, 
+  .breadcrumbs, 
+  .current-app caption,
+  input {
+    background: var(--main_color) !important;
+  }
+
+#id_feature_image {background: transparent !important;}
+#site-name a {color: var(--white) !important;}
+.app-users caption {background: var(--main_color);}
+
+.wrapper--btn-submit_all_reports {
+    position: absolute;
+    top: 400px;
+}
