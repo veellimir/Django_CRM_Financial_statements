@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header>
+        <nav class="navigation">
+            <div class="wrapper-titlte_main">
+                <h1><a href="{% url 'home' %}">Intetix</a></h1>
+                <h2 style="margin-left: 20px;">система управнения отчётами</h2>
+            </div>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'user_report' %}">Мои отчёты</a></li>
+                    <li style="margin-right: 70px;"><a href="{% url 'home' %}">Загрузить отчёт</a></li>
+                    <li class="logout"><a href="{% url 'logout' %}">Выйти</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <!-- MESSAGES -->
+    <div class="main-wrapper--messages">
+        {% if messages or form.errors %}
+            <div class="alert {% if messages %} alert-success {% else %} alert-warning {% endif %}">
+
+                {% if messages %}
+                    {% for msg in messages %}
+                        {{ msg }}
+                    {% endfor %}
+                {% else %}
+                    {{ form.errors }}
+                {% endif %}
+
+            </div>
+        {% endif %}
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

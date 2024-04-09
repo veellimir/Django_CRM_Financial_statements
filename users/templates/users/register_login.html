@@ -1,0 +1,73 @@
+{% extends 'mainapp/base.html' %}
+
+{% load static %}
+
+
+
+{% block content %}
+<div class="main--wrapper-form">
+    <div>
+        <div class="wrapper-form">
+            <!-- {% if page == 'register' %}
+                <h1>Регистрация</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="form_group">
+                        <label for="">Логин</label>
+                        {{ form.username }}
+                    </div>
+                    <div class="form_group">
+                        <label for="">Имя</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="form_group">
+                        <label for="">Фамилия</label>
+                        {{ form.last_name }}
+                    </div>
+                    <div class="form_group">
+                        <label for="">Идентификатор счета</label>
+                        {{ form.moneybag_id }}
+                    </div>
+                    <div class="form_group">
+                        <label for="">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="form_group">
+                        <label for="">Пароль</label>
+                        {{ form.password1 }}
+                    </div>
+                    <div class="form_group">
+                        <label for="">Подтверждение пароля</label>
+                        {{ form.password2 }}
+                    </div>
+                    <div class="wrapper--btn-form_submit">
+                        <input type="submit" value="Зарегестрироваться">
+                    </div>
+                </form>
+                <div class="footer_auth">
+                    <p>Уже есть аккаунт ? <a href="{% url 'login' %}"><b>Войти</b></a></p>
+                </div>
+            {% else %} -->
+                <h1>Войти</h1>
+                    <form action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form_group">
+                            <label for="">Имя пользователя</label>
+                            {{ form.username }}
+                        </div>
+                        <div class="form_group">
+                            <label for="">Пароль</label>
+                            {{ form.password }}
+                        </div>
+                        <div class="wrapper--btn-form_submit">
+                            <input type="submit" value="Войти">
+                        </div>
+                    </form>
+                    <div class="footer_auth">
+                        <!-- <p>Забыли пароль ?</p> -->
+                    </div>
+            <!-- {% endif %} -->
+        </div>
+    </div>
+</div>
+{% endblock %}
