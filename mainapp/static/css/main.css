@@ -182,7 +182,7 @@ header {
     cursor: pointer;
 }
 .wrapper-section form {margin: 0 13px;  }
-.form-operation_group {
+ .form-operation_group {
     display: flex;
     flex-direction: column;
 }
@@ -212,6 +212,9 @@ header {
 }
 .btn--submit_reports {transition: all 1s ease;}
 
+.item-container:first-of-type svg {display: none !important;}
+
+
 
 
 /*=======================
@@ -219,7 +222,6 @@ header {
 ========================*/
 .title-h1_reports {
     text-align: center;
-    
 
 }
 .ul-title__reports {

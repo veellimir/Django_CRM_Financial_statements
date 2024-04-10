@@ -20,18 +20,19 @@
                         {% endfor %}
                     </div>
                 </div>
-                      
-                <div class="form-operation_group">
-                    <label for="selectedCounterparty">Контрагенты</label>
-                    <input type="text" id="selectedCounterparty" name="counterparty" placeholder="Введите контрагента" />
-                    <div id="counterpartyPopup" class="popup" style="display: none;">
                 
+                <div class="form-operation_group">
+                    <label>Контрагеты</label>
+
+                    <select name="counterparty" style="margin-top: 30px;" id="counterparty">
+                        <option><p>контрагент</p></option>
                         {% for counterparty in counterparty_names %}
-                            <div class="popup-item" data-value="{{ counterparty }}">{{ counterparty }}</div>
+                            <option value="{{ counterparty.id}} ">{{ counterparty.name }}</option>
                         {% endfor %}
-                    </div>
+                    </select>
+
                 </div>
-                      
+                
                 <div class="form-operation_group">
                     <label>Сумма операции</label>
                     {{ form.value }}
@@ -46,9 +47,9 @@
                 </div>
                 <input class="btn--submit_reports" type="submit" value="Отправить отчёт">
             </form>
-            
+    
         </div>
     </section>
 </main>
-<script src="{% static 'js/search.js' %}"></script>
+
 {% endblock %}
