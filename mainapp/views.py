@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .forms import OperationsForm
-from .utils import get_list_deal_id, get_list_counterparty, get_list_money
+from .utils import get_list_deal_id, get_list_counterparty, get_list_money, get_list_articles, add_outcome
 from .models import Operations
 
 
@@ -12,6 +12,10 @@ def home(request):
     deal_names = get_list_deal_id()
     counterparty_names = get_list_counterparty()
     money_name = get_list_money()
+
+    get_list_articles()
+
+    user_moneybag_id = request.user.moneybag_id
 
     if request.method == 'POST':
         form = OperationsForm(request.POST, request.FILES)
@@ -22,9 +26,13 @@ def home(request):
             operation.reports = request.POST['reports']
             operation.save()
 
+            add_outcome(form, user_moneybag_id)
+
             # form.save()
             messages.success(request, 'Отчёт успешно отправлен')
             return redirect('home')
+        else:
+            print('Ошибка отправки finatblo')
     else:
         form = OperationsForm()
 

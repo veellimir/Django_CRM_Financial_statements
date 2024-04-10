@@ -12,7 +12,7 @@ class OperationsForm(forms.ModelForm):
             'undisclosed_write',
             'value',
             'description',
-            'image_cheque',
+            'image_cheque'
         ]
         labels = {
             'reports': 'Сделки',
@@ -23,7 +23,11 @@ class OperationsForm(forms.ModelForm):
             'image_cheque': 'Чек',
         }
 
-        # widgets = {
-        #     'reports': forms.Select(),
-        #     'counterparty': forms.Select(),
-        # }
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        if user:
+            self.fields['moneybag_id'].initial = user.moneybag_id
+
+

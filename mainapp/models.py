@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 
+from users.models import User
+
 
 class Operations(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
