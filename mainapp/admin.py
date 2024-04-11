@@ -6,18 +6,18 @@ from .models import Operations
 class OperationsAdmin(admin.ModelAdmin):
     list_display = (
         'get_user_full_name',
-        'reports',
+        'deal_name',
         'counterparty',
         'value',
         'description',
         'image_cheque',
     )
 
-    list_display_links = ('get_user_full_name', 'reports', 'counterparty', 'description', 'value', 'image_cheque')
-    search_fields = ('user__first_name', 'user__last_name', 'reports', 'description', 'value')  # Обновляем для поиска
-    list_filter = ('user__last_name', 'reports', 'description')  # Обновляем для фильтрации
+    list_display_links = ('get_user_full_name', 'deal_name', 'counterparty', 'description', 'value', 'image_cheque')
+    search_fields = ('user__first_name', 'user__last_name', 'deal_name', 'description', 'value')  # Обновляем для поиска
+    list_filter = ('user__last_name', 'deal_name', 'description')  # Обновляем для фильтрации
 
-    readonly_fields = ('reports', 'user')
+    readonly_fields = ('deal_name', 'user')
 
     def get_user_full_name(self, obj):
         return obj.user.get_full_name() if obj.user else ''

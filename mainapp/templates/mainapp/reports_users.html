@@ -18,7 +18,7 @@
             </div>
             {% for report in user_operations %}
             <div>
-                <p>{{ report.reports }}</p>
+                <p>{{ report.name }}</p>
             </div>
             <div>
                 <p>- {{ report.value }} руб.</p>
@@ -29,7 +29,7 @@
             <div>
                 <img class="reports_image" src="{{ report.image_cheque.url }}" alt="Изображение отчёта">
             </div>
-            {% endfor %}    
+            {% endfor %}
         </div>
     </section>
 </main>
