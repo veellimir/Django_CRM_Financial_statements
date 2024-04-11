@@ -3,17 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .forms import OperationsForm
-from .utils import get_list_deal_id, get_list_counterparty, get_list_money, get_list_articles, add_outcome
+from .utils import get_list_deal, get_list_counterparty, get_list_money, get_list_articles, add_outcome
 from .models import Operations
 
 
 @login_required(login_url='login')
 def home(request):
-    deal_names = get_list_deal_id()
+    deal_names = get_list_deal()
     counterparty_names = get_list_counterparty()
     money_name = get_list_money()
-
-    get_list_articles()
+    undisclosed_write = get_list_articles()
 
     user_moneybag_id = request.user.moneybag_id
 
@@ -22,17 +21,17 @@ def home(request):
 
         if form.is_valid():
             operation = form.save(commit=False)
+
             operation.user = request.user
-            operation.reports = request.POST['reports']
+            operation.reports = request.POST.get('reports')
             operation.save()
 
             add_outcome(form, user_moneybag_id)
 
-            # form.save()
             messages.success(request, 'Отчёт успешно отправлен')
             return redirect('home')
         else:
-            print('Ошибка отправки finatblo')
+            print('Ошибка сохранения в БД')
     else:
         form = OperationsForm()
 
@@ -42,6 +41,7 @@ def home(request):
         'deal_names': deal_names,
         'counterparty_names': counterparty_names,
         'money_name': money_name,
+        'undisclosed_write': undisclosed_write,
     }
     return render(request, 'mainapp/home.html', context)
 

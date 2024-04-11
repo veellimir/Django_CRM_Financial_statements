@@ -7,17 +7,17 @@ class OperationsForm(forms.ModelForm):
     class Meta:
         model = Operations
         fields = [
-            'reports',
+            'deal_name',
             'counterparty',
-            'undisclosed_write',
+            'undisclosed',
             'value',
             'description',
             'image_cheque'
         ]
         labels = {
-            'reports': 'Сделки',
+            'deal_name': 'Сделки',
             'counterparty': 'Контрагенты',
-            'undisclosed_write': 'Неразнесенное списание',
+            'undisclosed': 'Неразнесенное списание',
             'value': 'Сумма',
             'description': 'Назначение платежа',
             'image_cheque': 'Чек',

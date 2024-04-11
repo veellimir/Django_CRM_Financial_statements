@@ -11,16 +11,16 @@
                 {% csrf_token %}
             
                 <div class="form-operation_group">
-                    <label for="selectedDeal">Сделки</label>
-                    <input type="text" id="selectedDeal" name="reports" placeholder="Введите сделку" />
-                    <div id="dealPopup" class="popup" style="display: none;">
-                
+                    <label>Сделки</label>
+
+                    <select name="deal_name" style="margin-top: 30px;" id="deal_name">
+                        <option><p>сделка</p></option>
                         {% for deal_name in deal_names %}
-                            <div class="popup-item" data-value="{{ deal_name }}">{{ deal_name }}</div>
+                            <option value="{{ deal_name.id}} ">{{ deal_name.name }}</option>
                         {% endfor %}
-                    </div>
+                    </select>
                 </div>
-                
+            
                 <div class="form-operation_group">
                     <label>Контрагеты</label>
 
@@ -30,9 +30,19 @@
                             <option value="{{ counterparty.id}} ">{{ counterparty.name }}</option>
                         {% endfor %}
                     </select>
-
                 </div>
-                
+
+                <div class="form-operation_group">
+                    <label>Неразнесённое списание</label>
+
+                    <select name="undisclosed" id="undisclosed">
+                        <option><p>списание</p></option>
+                        {% for undisclosed in undisclosed_write %}
+                            <option value="{{ undisclosed.id }}">{{ undisclosed.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            
                 <div class="form-operation_group">
                     <label>Сумма операции</label>
                     {{ form.value }}
@@ -47,7 +57,6 @@
                 </div>
                 <input class="btn--submit_reports" type="submit" value="Отправить отчёт">
             </form>
-    
         </div>
     </section>
 </main>
