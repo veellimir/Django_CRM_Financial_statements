@@ -7,13 +7,12 @@ class OperationsAdmin(admin.ModelAdmin):
     list_display = (
         'get_user_full_name',
         'deal_name',
-        'counterparty',
         'value',
         'description',
         'image_cheque',
     )
 
-    list_display_links = ('get_user_full_name', 'deal_name', 'counterparty', 'description', 'value', 'image_cheque')
+    list_display_links = ('get_user_full_name', 'deal_name', 'description', 'value', 'image_cheque')
     search_fields = ('user__first_name', 'user__last_name', 'deal_name', 'description', 'value')  # Обновляем для поиска
     list_filter = ('user__last_name', 'deal_name', 'description')  # Обновляем для фильтрации
 

@@ -69,6 +69,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('counterpartyForm');
+    var selectedCounterparty = form.querySelector('.selectedCounterparty');
+    var selectedCounterpartyNameInput = form.querySelector('#selectedCounterpartyName');
+
+    selectedCounterparty.addEventListener('change', function() {
+        var selectedOption = selectedCounterparty.options[selectedCounterparty.selectedIndex];
+        var selectedOptionValue = selectedOption.innerText;
+
+        selectedCounterpartyNameInput.value = selectedOptionValue;
+    });
+});
 
 
 
