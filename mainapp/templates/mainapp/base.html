@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css">
 
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
@@ -48,6 +50,15 @@
     {% endblock %}
 
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
+
+    <script>
+         $(document).ready(function() {
+        $('#deal_name').select2({
+            placeholder: 'Выберите сделку',
+            allowClear: true // Если хотите, чтобы можно было очистить выбор
+        });
+    });
+    </script>
 
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/search.js' %}"></script>

@@ -33,21 +33,14 @@ def get_list_money():
     return get_data_from_api('moneybag')
 
 
-# print(get_list_money())
+print(get_list_money())
 
 
 def get_list_deal():
-    # url_pattern = URL + 'deal'
-    # response = requests.get(url_pattern, headers=HEADERS)
-    #
-    # if response.status_code == 200:
-    #     data = response.json()
-    #
-    #     print(data)
     return get_data_from_api('deal')
 
 
-print(get_list_deal())
+# print(get_list_deal())
 
 
 def get_list_counterparty():
@@ -70,11 +63,12 @@ def add_outcome(form, moneybag_id):
         "group": "outcome",
         "description": form.cleaned_data['description'],
         "partnerId": form.cleaned_data['counterparty'],
-        "date": "11.04.2024",
+        "date": "12.04.2024",
         "categoryId": form.cleaned_data['undisclosed'],
         "dealId": form.cleaned_data['deal_name'],
     }
     url_pattern = URL + 'transaction'
+    print(payload)
 
     try:
         response = requests.post(url_pattern, json=payload, headers=HEADERS)

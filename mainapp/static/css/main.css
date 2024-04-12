@@ -198,6 +198,7 @@ header {
     height: 35px;
     padding: 5px;
     font-size: 14px;
+    border-radius: 6px;
 }
 #id_image_cheque {color: var(--white);}
 
@@ -213,6 +214,60 @@ header {
 .btn--submit_reports {transition: all 1s ease;}
 
 .item-container:first-of-type svg {display: none !important;}
+
+.popup {
+    position: relative;
+    top: 0;
+    background: var(--white);
+    border: 1px solid #ccc;
+    max-height: 200px;
+    max-width: 300px;
+    overflow-y: auto;
+    cursor: pointer;
+}
+
+.modal_hidden {display: none;}
+.search-results {
+    background: #E5E3E4;
+    color: #453C41;
+    width: 300px;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+.search-result-option {
+    padding: 5px;
+    cursor: pointer;
+    font-size: 17px;
+}
+.search-result-option:hover {
+    background: #dad6d6;
+    border-radius: 6px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -7,18 +7,20 @@
     <section class="wrapper-section">
         <h1>Загрузить отчёт</h1>
         <div>
-            <form action="{% url 'home' %}" method="post" enctype="multipart/form-data">
+            <form action="{% url 'home' %}" method="post" enctype="multipart/form-data" id="f">
                 {% csrf_token %}
-            
                 <div class="form-operation_group">
-                    <label>Сделки</label>
+                    <label for="selectedDeal">Сделки</label>
 
-                    <select name="deal_name" style="margin-top: 30px;" id="deal_name">
-                        <option><p>сделка</p></option>
+                    <input type="text" id="dealSearch" placeholder="Поиск сделки">
+                    <div id="searchResults" class="search-results"></div>
+
+                    <select id="deal_name" name="deal_name" placeholder="Выберите сделку" class="selectedDeal modal_hidden">
                         {% for deal_name in deal_names %}
-                            <option value="{{ deal_name.id}} ">{{ deal_name.name }}</option>
+                            <option value="{{ deal_name.id }}" data-option-value="{{ deal_name.name }}">{{ deal_name.name }}</option>
                         {% endfor %}
                     </select>
+                    <input name="selectedDealName" id="selectedDealName" data-option-value="{{ deal_name.name }}" class="modal_hidden">
                 </div>
             
                 <div class="form-operation_group">
@@ -27,11 +29,11 @@
                     <select name="counterparty" style="margin-top: 30px;" id="counterparty">
                         <option><p>контрагент</p></option>
                         {% for counterparty in counterparty_names %}
-                            <option value="{{ counterparty.id}} ">{{ counterparty.name }}</option>
+                            <option  value="{{ counterparty.id }} ">{{ counterparty.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
-
+            
                 <div class="form-operation_group">
                     <label>Неразнесённое списание</label>
 
@@ -42,7 +44,7 @@
                         {% endfor %}
                     </select>
                 </div>
-            
+                
                 <div class="form-operation_group">
                     <label>Сумма операции</label>
                     {{ form.value }}
@@ -60,5 +62,4 @@
         </div>
     </section>
 </main>
-
 {% endblock %}
