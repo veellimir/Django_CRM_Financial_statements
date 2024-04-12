@@ -16,24 +16,36 @@
                     <div id="searchResults" class="search-results"></div>
 
                     <select id="deal_name" name="deal_name" placeholder="Выберите сделку" class="selectedDeal modal_hidden">
+                        <option value=""></option>
                         {% for deal_name in deal_names %}
                             <option value="{{ deal_name.id }}" data-option-value="{{ deal_name.name }}">{{ deal_name.name }}</option>
                         {% endfor %}
                     </select>
                     <input name="selectedDealName" id="selectedDealName" data-option-value="{{ deal_name.name }}" class="modal_hidden">
                 </div>
-            
+                
                 <div class="form-operation_group">
-                    <label>Контрагеты</label>
+                    <label for="selectedDeal">Контрагеты</label>
 
-                    <select name="counterparty" style="margin-top: 30px;" id="counterparty">
-                        <option><p>контрагент</p></option>
+                    <input type="text" id="dealSearch" placeholder="Поиск сделки">
+                    <div id="searchResults" class="search-results"></div>
+
+                    <select id="deal_name" name="counterparty" placeholder="Выберите контрагента" class="selectedDeal modal_hidden">
                         {% for counterparty in counterparty_names %}
-                            <option  value="{{ counterparty.id }} ">{{ counterparty.name }}</option>
+                            <option  value="{{ counterparty.id }}" data-option-value="{{ counterparty.id }}">{{ counterparty.name }}</option>
                         {% endfor %}
                     </select>
+                    <input name="counterparty" id="selectedDealName" data-option-value="{{ counterparty.name }}" class="modal_hidden">
                 </div>
-            
+                
+
+
+
+
+
+
+
+
                 <div class="form-operation_group">
                     <label>Неразнесённое списание</label>
 

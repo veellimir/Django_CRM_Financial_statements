@@ -4,30 +4,17 @@
 <main>
     <h1 class="title-h1_reports">Мои отчёты</h1>
     <section>
-        <div>
-            <div>
-                <ul class="ul-title__reports">
-                    <li>Наименоание сделки</li>
-                    <li>Контрагент</li>
-                    <li>Категория</li>
-                    <li>Дата</li>
-                    <li>Сумма затрат</li>
-                    <li>Описание</li>
-                    <li>Чек</li>
-                </ul>
-            </div>
-
-            <div>
-                <ul >
-                    {% for report in user_operations %}
-                        <div>
-                            <li>{{ report.selectedDealName }}</li>
-                            <li>{{ report.counterparty }}</li>
-                            <img class="reports_image" src="{{ report.image_cheque.url }}" alt="Изображение отчёта">
-                        </div>
-                    {% endfor %}
-                </ul>
-            </div>
+        <div class="wrapper--list_report">
+            {% for report in user_operations %}
+                    <ul class="li-list_report">
+                        <li>{{ report.selectedDealName }}</li>
+                        <!-- <td>{{ report.category }}</td> -->
+                        <li>{{ report.value }} руб.</li>
+                        <li>{{ report.description }}</li>
+                        <li>{{ report.created }}</li>
+                        <li><img class="reports_image" src="{{ report.image_cheque.url }}" alt="Изображение отчета"></li>
+                    </ul>
+            {% endfor %}
         </div>
     </section>
 </main>

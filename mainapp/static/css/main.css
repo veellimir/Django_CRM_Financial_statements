@@ -13,6 +13,7 @@
     --main_color_hover: #418fe3;
     --auth_form: #0c5274;
     --white: #fff;
+    --gray: #dad6d6;
 
     --warning: #840824;
     --success: #085e17;
@@ -231,8 +232,10 @@ header {
     background: #E5E3E4;
     color: #453C41;
     width: 300px;
+    max-height: 300px;
     border-radius: 6px;
     margin-top: 10px;
+    overflow: auto;
 }
 .search-result-option {
     padding: 5px;
@@ -240,10 +243,9 @@ header {
     font-size: 17px;
 }
 .search-result-option:hover {
-    background: #dad6d6;
+    background: var(--gray);
     border-radius: 6px;
 }
-
 
 
 
@@ -277,16 +279,24 @@ header {
 ========================*/
 .title-h1_reports {
     text-align: center;
-
+    margin-top: 30px;
 }
-.ul-title__reports {
+
+
+.li-list_report {
     display: flex;
     justify-content: space-around;
-    background-color: #0dd835;
+    background: var(--gray);
+    margin-top: 30px;
+    cursor: pointer;
 }
-
-
-
+.li-list_report li {
+    width: 200px;
+    max-width: auto;
+    display: flex;
+    white-space: wrap;
+    align-items: center;
+}
 
 .reports_image {
     width: 100px;
@@ -294,7 +304,6 @@ header {
     object-fit: cover;
     cursor: pointer;
 }
-
 
 
 
