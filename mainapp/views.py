@@ -23,7 +23,9 @@ def home(request):
             operation = form.save(commit=False)
 
             operation.user = request.user
-            operation.reports = request.POST.get('reports')
+            operation.deal_name = form.cleaned_data['selectedDealName']
+
+            # print(form)
             operation.save()
 
             add_outcome(form, user_moneybag_id)

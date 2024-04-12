@@ -16,20 +16,18 @@
                     <li>Чек</li>
                 </ul>
             </div>
-            {% for report in user_operations %}
+
             <div>
-                <p>{{ report.name }}</p>
+                <ul >
+                    {% for report in user_operations %}
+                        <div>
+                            <li>{{ report.selectedDealName }}</li>
+                            <li>{{ report.counterparty }}</li>
+                            <img class="reports_image" src="{{ report.image_cheque.url }}" alt="Изображение отчёта">
+                        </div>
+                    {% endfor %}
+                </ul>
             </div>
-            <div>
-                <p>- {{ report.value }} руб.</p>
-            </div>
-            <div>
-                {{ report.description }}
-            </div>
-            <div>
-                <img class="reports_image" src="{{ report.image_cheque.url }}" alt="Изображение отчёта">
-            </div>
-            {% endfor %}
         </div>
     </section>
 </main>
