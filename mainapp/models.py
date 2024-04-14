@@ -16,6 +16,7 @@ class Operations(models.Model):
     value = models.CharField(max_length=200, blank=False, null=False, verbose_name='Сумма руб.')
     description = models.TextField(blank=False, null=False, verbose_name='Назначения платежа')
     image_cheque = models.ImageField(blank=False, null=False, verbose_name='Чек (фото)')
+    image_cheque_link = models.CharField(max_length=400, blank=True, null=True, verbose_name='Ссылка на изображения')
     created = models.DateField(auto_now_add=True, verbose_name='Дата создания')
 
     # def __str__(self):
