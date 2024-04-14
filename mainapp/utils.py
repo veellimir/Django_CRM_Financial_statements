@@ -62,14 +62,22 @@ def add_outcome(form, moneybag_id):
         "moneybagId": moneybag_id,
         "group": "outcome",
         "description": form.cleaned_data['description'],
-        "partnerId": form.cleaned_data['counterparty'],
-        "date": "12.04.2024",
-        "categoryId": form.cleaned_data['undisclosed'],
-        "dealId": form.cleaned_data['deal_name'],
+        # "partnerId": form.cleaned_data['counterparty'],
+        "date": "14.04.2024",
+        # "categoryId": form.cleaned_data['undisclosed'],
+        # "dealId": form.cleaned_data['deal_name'],
     }
+    if form.cleaned_data.get('undisclosed'):
+        payload["categoryId"] = form.cleaned_data['undisclosed']
+
+    if form.cleaned_data.get('deal_name'):
+        payload["dealId"] = form.cleaned_data['deal_name']
+
+    if form.cleaned_data.get('counterparty'):
+        payload["partnerId"] = form.cleaned_data['counterparty']
+
     url_pattern = URL + 'transaction'
     print(payload)
-
     try:
         response = requests.post(url_pattern, json=payload, headers=HEADERS)
         response.raise_for_status()

@@ -21,13 +21,11 @@ def home(request):
 
         if form.is_valid():
             operation = form.save(commit=False)
-
             operation.user = request.user
             operation.deal_name = form.cleaned_data['selectedDealName']
 
             # print(form)
             operation.save()
-
             add_outcome(form, user_moneybag_id)
 
             messages.success(request, 'Отчёт успешно отправлен')
