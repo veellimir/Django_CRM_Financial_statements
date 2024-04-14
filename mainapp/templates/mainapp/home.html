@@ -15,7 +15,7 @@
                     <input type="text" id="dealSearch" placeholder="Поиск сделки">
                     <div id="searchResults" class="search-results"></div>
 
-                    <select id="deal_name" name="deal_name" placeholder="Выберите сделку" class="selectedDeal modal_hidden">
+                    <select id="deal_name" name="deal_name" class="selectedDeal modal_hidden">
                         <option value=""></option>
                         {% for deal_name in deal_names %}
                             <option value="{{ deal_name.id }}" data-option-value="{{ deal_name.name }}">{{ deal_name.name }}</option>
@@ -30,7 +30,7 @@
                     <input type="text" id="dealSearch" placeholder="Поиск сделки">
                     <div id="searchResults" class="search-results"></div>
 
-                    <select id="deal_name" name="counterparty" placeholder="Выберите контрагента" class="selectedDeal modal_hidden">
+                    <select id="deal_name" name="counterparty" class="selectedDeal modal_hidden">
                         {% for counterparty in counterparty_names %}
                             <option  value="{{ counterparty.id }}" data-option-value="{{ counterparty.id }}">{{ counterparty.name }}</option>
                         {% endfor %}
@@ -39,14 +39,27 @@
                 </div>
                 
 
-
-
-
-
-
-
-
                 <div class="form-operation_group">
+                    <label for="selectedDeal">Неразнесённое списание</label>
+
+                    <input type="text" id="dealSearch" placeholder="Поиск списание">
+                    <div id="searchResults" class="search-results"></div>
+
+                    <select name="undisclosed" id="deal_name" class="selectedDeal modal_hidden">
+                        {% for undisclosed in undisclosed_write %}
+                            <option value="{{ undisclosed.id }}" data-option-value="{{ undisclosed.id }}">{{ undisclosed.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input name="undisclosed" id="selectedDealName" data-option-value="{{ undisclosed.name }}" class="modal_hidden">
+                </div>
+
+
+
+
+
+
+
+                <!-- <div class="form-operation_group">
                     <label>Неразнесённое списание</label>
 
                     <select name="undisclosed" id="undisclosed">
@@ -55,7 +68,7 @@
                             <option value="{{ undisclosed.id }}">{{ undisclosed.name }}</option>
                         {% endfor %}
                     </select>
-                </div>
+                </div> -->
                 
                 <div class="form-operation_group">
                     <label>Сумма операции</label>
