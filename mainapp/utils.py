@@ -56,12 +56,13 @@ def get_list_articles():
 
 # ======================================================================================================================
 # REQUEST POST
-def add_outcome(form, moneybag_id):
+def add_outcome(form, moneybag_id, description):
     payload = {
         "value": form.cleaned_data['value'],
         "moneybagId": moneybag_id,
         "group": "outcome",
-        "description": form.cleaned_data['description'],
+        # "description": form.cleaned_data['description'],
+        "description": description,
         # "partnerId": form.cleaned_data['counterparty'],
         "date": "14.04.2024",
         # "categoryId": form.cleaned_data['undisclosed'],

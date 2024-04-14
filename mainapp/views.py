@@ -2,9 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+import os
+
+from dotenv import load_dotenv
+
 from .forms import OperationsForm
 from .utils import get_list_deal, get_list_counterparty, get_list_money, get_list_articles, add_outcome
 from .models import Operations
+
+load_dotenv()
 
 
 @login_required(login_url='login')
@@ -24,9 +30,16 @@ def home(request):
             operation.user = request.user
             operation.deal_name = form.cleaned_data['selectedDealName']
 
-            # print(form)
-            operation.save()
-            add_outcome(form, user_moneybag_id)
+            instance = form.save()
+            instance.image_cheque_link = instance.image_cheque.url
+
+            image_url = instance.image_cheque.url
+            full_image_url = os.getenv('URL_LINK') + image_url
+            instance.image_cheque_link = full_image_url
+            instance.save()
+
+            description = form.cleaned_data['description'] + ' ' + full_image_url
+            add_outcome(form, user_moneybag_id, description)
 
             messages.success(request, 'Отчёт успешно отправлен')
             return redirect('home')
