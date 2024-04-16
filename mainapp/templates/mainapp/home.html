@@ -10,7 +10,7 @@
             <form action="{% url 'home' %}" method="post" enctype="multipart/form-data" id="f">
                 {% csrf_token %}
                 <div class="form-operation_group">
-                    <label for="selectedDeal">Сделки</label>
+                    <label for="selectedDeal">Сделка</label>
 
                     <input type="text" id="dealSearch" placeholder="Поиск сделки">
                     <div id="searchResults" class="search-results"></div>
@@ -25,9 +25,9 @@
                 </div>
                 
                 <div class="form-operation_group">
-                    <label for="selectedDeal">Контрагеты</label>
+                    <label for="selectedDeal">Контрагет</label>
 
-                    <input type="text" id="dealSearch" placeholder="Поиск сделки">
+                    <input type="text" id="dealSearch" placeholder="Поиск контрагета">
                     <div id="searchResults" class="search-results"></div>
 
                     <select id="deal_name" name="counterparty" class="selectedDeal modal_hidden">
@@ -40,7 +40,7 @@
                 
 
                 <div class="form-operation_group">
-                    <label for="selectedDeal">Неразнесённое списание</label>
+                    <label for="selectedDeal">Статья списания</label>
 
                     <input type="text" id="dealSearch" placeholder="Поиск списание">
                     <div id="searchResults" class="search-results"></div>
