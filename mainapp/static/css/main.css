@@ -33,8 +33,8 @@ a {color: var(--white);}
     padding: 10px;
     opacity: 0;
     transition: opacity 0.5s ease;
-    animation-name: fadeIn; 
-    animation-duration: 0.5s; 
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
 
@@ -49,7 +49,7 @@ a {color: var(--white);}
 
 
 .alert-success {background: var(--success);}
-.alert-warning {background: var(--warning);}
+.alert-error {background: var(--warning);}
 
 header {
     background: var(--main_color);
@@ -166,6 +166,7 @@ header {
     background: var(--auth_form);
     width: 330px;
     border-radius: 6px;
+    padding: 10px 0;
 }
 .wrapper-section h1 {
     text-align: center;

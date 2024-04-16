@@ -1,6 +1,11 @@
 import os
+import json
+import re
+
 import requests
 from dotenv import load_dotenv
+
+from django.contrib import messages
 
 
 load_dotenv()
@@ -8,6 +13,10 @@ load_dotenv()
 URL = 'https://api.fintablo.ru/v1/'
 TOKEN = os.getenv('API_KEY_FIN-TABLO')
 HEADERS = {'Authorization': f'Bearer {TOKEN}'}
+
+URL_YANDEX = 'https://cloud-api.yandex.net/v1/disk/resources/upload/'
+YANDEX_TOKEN = os.getenv('API_YANDEX_DISK')
+HEADERS_YANDEX = {'Authorization': f'OAuth {YANDEX_TOKEN}'}
 
 
 # REQUEST GET LIST
@@ -33,7 +42,7 @@ def get_list_money():
     return get_data_from_api('moneybag')
 
 
-print(get_list_money())
+# print(get_list_money())
 
 
 def get_list_deal():
@@ -56,17 +65,13 @@ def get_list_articles():
 
 # ======================================================================================================================
 # REQUEST POST
-def add_outcome(form, moneybag_id, description):
+def add_outcome(request, form, moneybag_id, description):
     payload = {
         "value": form.cleaned_data['value'],
         "moneybagId": moneybag_id,
         "group": "outcome",
-        # "description": form.cleaned_data['description'],
         "description": description,
-        # "partnerId": form.cleaned_data['counterparty'],
-        "date": "14.04.2024",
-        # "categoryId": form.cleaned_data['undisclosed'],
-        # "dealId": form.cleaned_data['deal_name'],
+        "date": "15.04.2024",
     }
     if form.cleaned_data.get('undisclosed'):
         payload["categoryId"] = form.cleaned_data['undisclosed']
@@ -86,3 +91,28 @@ def add_outcome(form, moneybag_id, description):
 
     except requests.exceptions.RequestException as e:
         print('Произошла ошибка при выполнении запроса:', e)
+        messages.error(request, 'Произошла ошибка при выполнении запроса. Пожалуйста, попробуйте еще раз.')
+
+
+# POST IMAGE TO YANDEX_DISK
+def disk_resources_upload(file_path, dir_path=''):
+    params = {
+        'path': os.path.join(dir_path, os.path.basename(file_path)),
+        'overwrite': 'true'
+    }
+    url_query = 'https://cloud-api.yandex.net/v1/disk/resources/upload'
+    result_query = send_query_ya_disk(url_query, params)
+
+    if 'error' not in result_query:
+        with open(file_path, 'rb') as f:
+            files = {'file': f}
+            response_upload = requests.put(result_query['href'], files=files)
+            http_code = response_upload.status_code
+        return http_code
+    else:
+        return result_query['message']
+
+
+def send_query_ya_disk(url, params):
+    response = requests.get(url, params=params, headers={'Authorization': f'OAuth {YANDEX_TOKEN}'})
+    return response.json() if response.ok else {'error': 'Failed to get upload URL'}

@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from urllib.parse import unquote
 
 import os
 
 from dotenv import load_dotenv
 
 from .forms import OperationsForm
-from .utils import get_list_deal, get_list_counterparty, get_list_money, get_list_articles, add_outcome
+from .utils import (get_list_deal, get_list_counterparty, get_list_money,
+                    get_list_articles, add_outcome, disk_resources_upload)
 from .models import Operations
 
 load_dotenv()
@@ -39,7 +41,14 @@ def home(request):
             instance.save()
 
             description = form.cleaned_data['description'] + ' ' + full_image_url
-            add_outcome(form, user_moneybag_id, description)
+
+            add_outcome(request, form, user_moneybag_id, description)
+
+            image_url = unquote(image_url)
+            path_image_media = '.' + image_url
+
+            dir_path = '/reports'
+            disk_resources_upload(path_image_media, dir_path)
 
             messages.success(request, 'Отчёт успешно отправлен')
             return redirect('home')
