@@ -33,27 +33,22 @@ def home(request):
             operation.deal_name = form.cleaned_data['selectedDealName']
 
             instance = form.save()
-            instance.image_cheque_link = instance.image_cheque.url
-
-            image_url = instance.image_cheque.url
-            full_image_url = os.getenv('URL_LINK') + image_url
-            instance.image_cheque_link = full_image_url
+            instance.image_cheque_link = os.getenv('URL_LINK') + instance.image_cheque.url
             instance.save()
 
-            description = form.cleaned_data['description'] + ' ' + full_image_url
+            description = form.cleaned_data['description'] + ' ' + instance.image_cheque_link
+            during_period = form.cleaned_data['during_period']
 
-            add_outcome(request, form, user_moneybag_id, description)
+            add_outcome(request, form, user_moneybag_id, description, during_period)
 
-            image_url = unquote(image_url)
+            image_url = unquote(instance.image_cheque.url)
             path_image_media = '.' + image_url
 
-            dir_path = '/reports'
+            dir_path = f'/reports'
             disk_resources_upload(path_image_media, dir_path)
 
             messages.success(request, 'Отчёт успешно отправлен')
             return redirect('home')
-        else:
-            print('Ошибка сохранения в БД')
     else:
         form = OperationsForm()
 
@@ -63,7 +58,7 @@ def home(request):
         'deal_names': deal_names,
         'counterparty_names': counterparty_names,
         'money_name': money_name,
-        'undisclosed_write': undisclosed_write,
+        'undisclosed_write': undisclosed_write
     }
     return render(request, 'mainapp/home.html', context)
 

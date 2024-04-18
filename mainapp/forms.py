@@ -13,7 +13,8 @@ class OperationsForm(forms.ModelForm):
             'undisclosed',
             'value',
             'description',
-            'image_cheque'
+            'image_cheque',
+            'during_period',
         ]
         labels = {
             'deal_name': 'Сделки',
@@ -23,7 +24,10 @@ class OperationsForm(forms.ModelForm):
             'value': 'Сумма',
             'description': 'Назначение платежа',
             'image_cheque': 'Чек',
+            'during_period': 'За период'
         }
+
+    during_period = forms.DateTimeField(widget=forms.TextInput(attrs={'type': 'date'}))
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
