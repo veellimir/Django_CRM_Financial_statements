@@ -21,3 +21,7 @@ inputAuth.forEach((el) => {
     el.style.transitionDuration = "0.1s";
   });
 });
+
+
+
+

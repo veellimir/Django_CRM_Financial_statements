@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -9,7 +11,7 @@ from dotenv import load_dotenv
 
 from .forms import OperationsForm
 from .utils import (get_list_deal, get_list_counterparty, get_list_money,
-                    get_list_articles, add_outcome, disk_resources_upload)
+                    get_list_articles, add_outcome, disk_resources_upload, create_year_folder)
 from .models import Operations
 
 load_dotenv()
@@ -44,7 +46,9 @@ def home(request):
             image_url = unquote(instance.image_cheque.url)
             path_image_media = '.' + image_url
 
-            dir_path = f'/reports'
+            dir_path = f'/reports/'
+            create_year_folder(dir_path)
+
             disk_resources_upload(path_image_media, dir_path)
 
             messages.success(request, 'Отчёт успешно отправлен')

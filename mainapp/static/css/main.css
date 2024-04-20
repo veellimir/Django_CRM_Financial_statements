@@ -248,6 +248,41 @@ header {
     border-radius: 6px;
 }
 
+.modal_loading {
+    width: 100%;
+    height: 100%;
+    background: #444344c1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.modal_loading h3 {
+    margin-top: 50px;
+    color: var(--white);
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+.circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 10px solid var(--white);
+    border-top: 10px solid var(--main_color);
+    animation: animate-loading 0.1s infinite linear;
+}
+@keyframes animate-loading {
+    0% {
+        transform: translate(-20%, 50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-20%, 50%) rotate(360deg);
+    }
+}
+
 
 
 
