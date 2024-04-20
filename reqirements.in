@@ -2,3 +2,5 @@ django
 python-dotenv
 pillow
 requests
+asyncio
+aiofiles
