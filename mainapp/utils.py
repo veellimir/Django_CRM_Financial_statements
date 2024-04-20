@@ -117,8 +117,6 @@ def send_query_ya_disk(url, params):
     return response.json() if response.ok else {'error': 'Не удалось получить URL-адрес для загрузки'}
 
 
-
-
 # GET YANDEX_DISK FILES
 # def get_files_yandex_disk():
 #     url_query = URL_YANDEX + '/public'
@@ -133,11 +131,6 @@ def send_query_ya_disk(url, params):
 #     except requests.exceptions.RequestException as e:
 #         print(f"Произошла ошибка при запросе к Яндекс.Диску: {e}")
 #         return None
-
-
-
-
-
 
 
 # PUT FOLDER YEAR TO YANDEX_DISK
@@ -156,4 +149,4 @@ def create_year_folder(folder_name):
         print(f"Произошла ошибка: {e}")
 
 
-create_year_folder('reports/')
+# create_year_folder('reports/')

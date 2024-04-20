@@ -7,11 +7,11 @@
     <section class="wrapper-section">
         <h1>Загрузить отчёт</h1>
         <div>
-            <form action="{% url 'home' %}" method="post" enctype="multipart/form-data" id="f">
+            <form action="{% url 'home' %}" method="post" enctype="multipart/form-data" id="report_form">
                 {% csrf_token %}
                 <div class="form-operation_group">
                     <label for="selectedDeal">Сделка</label>
-
+                
                     <input type="text" id="dealSearch" placeholder="Поиск сделки">
                     <div id="searchResults" class="search-results"></div>
 
@@ -38,7 +38,6 @@
                     <input name="counterparty" id="selectedDealName" data-option-value="{{ counterparty.name }}" class="modal_hidden">
                 </div>
                 
-
                 <div class="form-operation_group">
                     <label for="selectedDeal">Статья списания</label>
 
@@ -52,8 +51,6 @@
                     </select>
                     <input name="undisclosed" id="selectedDealName" data-option-value="{{ undisclosed.name }}" class="modal_hidden">
                 </div>
-
-
                 <div class="form-operation_group">
                     <label>Сумма операции</label>
                     {{ form.value }}
@@ -70,7 +67,11 @@
                     <label>Чек</label>
                     {{ form.image_cheque }}
                 </div>
-                <input class="btn--submit_reports" type="submit" value="Отправить отчёт">
+                <input class="btn--submit_reports" type="submit" value="Отправить отчёт" id="btn_submit">
+                <div class="modal_loading" style="display: none;">
+                    <div class="circle"></div>
+                    <h3>Загружаю отчёт</h3>
+                </div>
             </form>
         </div>
     </section>
