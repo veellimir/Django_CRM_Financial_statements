@@ -145,6 +145,7 @@ header {
 }
 .wrapper--btn-form_submit input:hover,
 .btn--submit_reports:hover  {background: var(--main_color_hover);}
+
 .footer_auth {
     margin: 15px;
     text-align: center;
