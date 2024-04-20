@@ -272,7 +272,7 @@ header {
     border-radius: 50%;
     border: 10px solid var(--white);
     border-top: 10px solid var(--main_color);
-    animation: animate-loading 0.1s infinite linear;
+    animation: animate-loading 1s infinite linear;
 }
 @keyframes animate-loading {
     0% {

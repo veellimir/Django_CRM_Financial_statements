@@ -1,17 +1,16 @@
-import datetime
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from urllib.parse import unquote
 
 import os
+import datetime
 
 from dotenv import load_dotenv
 
 from .forms import OperationsForm
 from .utils import (get_list_deal, get_list_counterparty, get_list_money,
-                    get_list_articles, add_outcome, disk_resources_upload, create_year_folder)
+                    get_list_articles, add_outcome, disk_resources_upload)
 from .models import Operations
 
 load_dotenv()
@@ -46,10 +45,12 @@ def home(request):
             image_url = unquote(instance.image_cheque.url)
             path_image_media = '.' + image_url
 
-            dir_path = f'/reports/'
-            create_year_folder(dir_path)
+            dir_path = f'/reports/{datetime.datetime.now().year}/'
 
-            disk_resources_upload(path_image_media, dir_path)
+            name_image = ('За ' + during_period.strftime('%d.%m.%Y') + '__'
+                    + request.user.first_name + '__' + form.cleaned_data['description'])
+
+            disk_resources_upload(path_image_media, name_image, dir_path)
 
             messages.success(request, 'Отчёт успешно отправлен')
             return redirect('home')
@@ -62,7 +63,7 @@ def home(request):
         'deal_names': deal_names,
         'counterparty_names': counterparty_names,
         'money_name': money_name,
-        'undisclosed_write': undisclosed_write
+        'undisclosed_write': undisclosed_write,
     }
     return render(request, 'mainapp/home.html', context)
 
