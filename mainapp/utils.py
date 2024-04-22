@@ -4,7 +4,9 @@ import requests
 from dotenv import load_dotenv
 
 from django.contrib import messages
+from django.db.models import Q
 
+from .models import Operations
 
 load_dotenv()
 
@@ -156,3 +158,18 @@ def send_query_ya_disk(url, params):
 
 
 # create_year_folder('reports/')
+
+def admin_search_reports(request):
+    search_query = ''
+
+    if request.GET.get('search_query'):
+        search_query = request.GET.get('search_query')
+
+        data_operations = Operations.objects.distinct().filter(
+            Q(deal_name__icontains=search_query.lower()) |
+            Q(value__icontains=search_query.lower())
+        )
+    else:
+        data_operations = Operations.objects.all()
+    return search_query, data_operations
+
