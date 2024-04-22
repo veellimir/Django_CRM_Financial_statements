@@ -1,21 +1,37 @@
 {% extends 'mainapp/base.html' %}
 
 {% block content %}
-<main>
     <h1 class="title-h1_reports">Мои отчёты</h1>
-    <section>
-        <div class="wrapper--list_report">
-            {% for report in user_operations %}
-                    <ul class="li-list_report">
-                        <li>{{ report.selectedDealName }}</li>
-                        <!-- <td>{{ report.category }}</td> -->
-                        <li>{{ report.value }} руб.</li>
-                        <li>{{ report.description }}</li>
-                        <li>{{ report.created }}</li>
-                        <li><img class="reports_image" src="{{ report.image_cheque.url }}" alt="Изображение отчета"></li>
-                    </ul>
-            {% endfor %}
+    <div>
+        <div class="wrapper--search-reports">
+            <form action="#" method="get" id="search" class="form-search-reports">
+                <input type="text" class="input-search_reports" placeholder="Найти" name="search_query" value="{{ search_query }}"/>
+                <input type="submit" value="Поиск" class="btn_submit_report_search"/>
+            </form>
         </div>
+    </div>
+    <section class="wrapper--main_content-table">
+        <table class="table-search_th">
+            <tr>
+                <th>Сделка</th>
+                <th>Имя пользователя</th>
+                <th>Сумма</th>
+                <th>Назначения платежа</th>
+                <th>Дата создания отчёта</th>
+                <th>За период</th>
+                <th>Чек</th>
+            </tr>
+            {% for user_operation in user_operations %}
+                <tr class="tr-wrapper-reports">
+                    <td>{{ user_operation.deal_name }}</td>
+                    <td>{{ user_operation.user.first_name }}</td>
+                    <td>{{ user_operation.value }}</td>
+                    <td>{{ user_operation.description }}</td>
+                    <td>{{ user_operation.created }}</td>
+                    <td>{{ user_operation.during_period|date:"d F Y" }}</td>
+                <td><img class="image_reports" src="{{ all_operation.image_cheque.url }}" alt="Изображения чека"></td>
+                </tr>
+            {% endfor %}
+        </table>
     </section>
-</main>
 {% endblock %}

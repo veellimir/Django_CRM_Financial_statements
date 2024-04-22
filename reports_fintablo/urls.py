@@ -12,7 +12,8 @@ urlpatterns = [
     path('', include('users.urls')),
 
     path('', views.home, name='home'),
-    path('my_report/', views.reports_user, name='user_report')
+    path('my_report/', views.reports_user, name='user_report'),
+    path('all-reports/', views.all_reports, name='all_reports'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

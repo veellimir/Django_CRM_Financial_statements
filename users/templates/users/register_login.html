@@ -8,7 +8,7 @@
 <div class="main--wrapper-form">
     <div>
         <div class="wrapper-form">
-            <!-- {% if page == 'register' %}
+            {% if page == 'register' %}
                 <h1>Регистрация</h1>
                 <form action="" method="post">
                     {% csrf_token %}
@@ -47,7 +47,7 @@
                 <div class="footer_auth">
                     <p>Уже есть аккаунт ? <a href="{% url 'login' %}"><b>Войти</b></a></p>
                 </div>
-            {% else %} -->
+            {% else %}
                 <h1>Войти</h1>
                     <form action="{% url 'login' %}" method="post">
                         {% csrf_token %}
@@ -65,8 +65,9 @@
                     </form>
                     <div class="footer_auth">
                         <!-- <p>Забыли пароль ?</p> -->
+                        <p>Нет аккаунта ? <a href="{% url 'register' %}"><b>Зарегестрироваться</b></a></p>
                     </div>
-            <!-- {% endif %} -->
+            {% endif %}
         </div>
     </div>
 </div>

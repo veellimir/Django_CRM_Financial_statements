@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'mainapp/logo_color.png' %}" type="image/svg+xml">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'mainapp/logo_color.png' %}">
+    <!-- <link rel="icon" type="image/png" sizes="32x32" href="{% static 'mainapp/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'mainapp/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'mainapp/site.webmanifest' %}"> -->
 
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <title>{{ title }}</title>
@@ -17,8 +22,13 @@
             </div>
             <ul>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'user_report' %}">Мои отчёты</a></li>
-                    <li style="margin-right: 70px;"><a href="{% url 'home' %}">Загрузить отчёт</a></li>
+                    {% if user.is_superuser  %}
+                
+                    {% else %}
+                        <li><a href="{% url 'user_report' %}">Мои отчёты</a></li>
+                        <li style="margin-right: 70px;"><a href="{% url 'home' %}">Загрузить отчёт</a></li>
+                    {% endif %}
+
                     <li class="logout"><a href="{% url 'logout' %}">Выйти</a></li>
                 {% endif %}
             </ul>
