@@ -9,8 +9,9 @@ import datetime
 from dotenv import load_dotenv
 
 from .forms import OperationsForm
-from .utils import (get_list_deal, get_list_counterparty, get_list_money,
-                    get_list_articles, add_outcome, disk_resources_upload, admin_search_reports)
+from .utils import (get_list_deal, get_list_counterparty, get_list_articles, add_outcome,
+                    disk_resources_upload, admin_search_reports)
+
 from .models import Operations
 
 load_dotenv()
@@ -22,6 +23,7 @@ def home(request):
     deal_names = get_list_deal()
     counterparty_names = get_list_counterparty()
     undisclosed_write = get_list_articles()
+
     user_moneybag_id = request.user.moneybag_id
 
     if request.method == 'POST':
@@ -33,18 +35,15 @@ def home(request):
             operation.deal_name = form.cleaned_data['selectedDealName']
 
             instance = form.save(commit=False)
-            instance.image_cheque_link = os.getenv('URL_LINK') + instance.image_cheque.url
-            description = form.cleaned_data['description'] + ' ' + instance.image_cheque_link
             during_period = form.cleaned_data['during_period']
 
             name_image = ('За_' + during_period.strftime('%d.%m.%Y') + '__'
                           + request.user.first_name + '__'
                           + form.cleaned_data['description'].replace(' ', '_'))
 
-            file_name = os.path.basename(instance.image_cheque.name)
-            new_file_name = (name_image + os.path.splitext(file_name)[1])
-
+            new_file_name = name_image + os.path.splitext(instance.image_cheque.name)[1]
             instance.image_cheque.name = os.path.join(os.path.dirname(instance.image_cheque.name), new_file_name)
+            description = form.cleaned_data['description'] + ' ' + os.getenv('URL_LINK') + '/media/' + new_file_name
             instance.save()
 
             add_outcome(request, form, user_moneybag_id, description, during_period)
@@ -52,6 +51,7 @@ def home(request):
             image_url = unquote(instance.image_cheque.url)
             path_image_media = '.' + image_url
             dir_path = f'/reports/{datetime.datetime.now().year}/'
+
             disk_resources_upload(path_image_media, name_image, dir_path)
 
             messages.success(request, 'Отчёт успешно отправлен')
@@ -64,9 +64,7 @@ def home(request):
         'form': form,
         'deal_names': deal_names,
         'counterparty_names': counterparty_names,
-        # 'money_name': money_name,
-        'undisclosed_write': undisclosed_write,
-        # 'file_yandex': file_yandex
+        'undisclosed_write': undisclosed_write
     }
     return render(request, 'mainapp/home.html', context)
 
@@ -93,6 +91,6 @@ def all_reports(request):
     context = {
         'title': 'Все отчёты',
         'all_operations': all_operations,
-        'search_query': search_query,
+        'search_query': search_query
     }
     return render(request, 'mainapp/all_reports.html', context)
