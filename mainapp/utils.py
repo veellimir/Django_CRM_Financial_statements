@@ -22,7 +22,7 @@ HEADERS_YANDEX = {'Authorization': f'OAuth {YANDEX_TOKEN}'}
 # REQUEST GET LIST
 def get_data_from_api(endpoint):
     """
-    Динамическая функция для получения
+    Динамическая функция для получения списков
     :param endpoint:
     :return: moneybag, deal, partner, category
     """
@@ -40,14 +40,8 @@ def get_list_money():
     return get_data_from_api('moneybag')
 
 
-# print(get_list_money())
-
-
 def get_list_deal():
     return get_data_from_api('deal')
-
-
-# print(get_list_deal())
 
 
 def get_list_counterparty():
@@ -58,12 +52,18 @@ def get_list_articles():
     return get_data_from_api('category')
 
 
-# print(get_list_articles())
-
-
 # ======================================================================================================================
 # REQUEST POST
 def add_outcome(request, form, moneybag_id, description, during_period):
+    """
+    Функция отправки данных в ФинТабло
+    :param request:
+    :param form:
+    :param moneybag_id:
+    :param description:
+    :param during_period:
+    :return: post send api:
+    """
     during_period_str = during_period.strftime('%d.%m.%Y')
 
     payload = {
@@ -94,30 +94,30 @@ def add_outcome(request, form, moneybag_id, description, during_period):
         messages.error(request, 'Произошла ошибка при выполнении запроса. Пожалуйста, попробуйте еще раз.')
 
 
-# PUT IMAGE TO YANDEX_DISK
-def disk_resources_upload(file_path, name_image, dir_path=''):
-    file_name = os.path.basename(file_path)
-    new_file_name = name_image + os.path.splitext(file_name)[1]
-
-    new_file_path = os.path.join(os.path.dirname(file_path), new_file_name)
-    print(new_file_path)
-    os.rename(file_path, new_file_path)
-
+def disk_resources_upload(file_path, name_image, dir_path):
+    """
+    Функция загрузки изображения на Я-Диск
+    :param file_path:
+    :param name_image:
+    :param dir_path:
+    :return: put send api:
+    """
     params = {
-        'path': os.path.join(dir_path, os.path.basename(new_file_path)),
+        'path': os.path.join(dir_path, os.path.basename(name_image)),
         'overwrite': 'true'
     }
     url_query = URL_YANDEX + '/upload'
     result_query = send_query_ya_disk(url_query, params)
 
     if 'error' not in result_query:
-        with open(new_file_path, 'rb') as f:
+        with open(file_path, 'rb') as f:
             files = {'file': f}
             response_upload = requests.put(result_query['href'], files=files)
             http_code = response_upload.status_code
+
         return http_code
     else:
-        return result_query['message']
+        return result_query['error']
 
 
 def send_query_ya_disk(url, params):
