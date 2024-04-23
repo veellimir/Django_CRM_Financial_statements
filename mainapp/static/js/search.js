@@ -82,11 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-
-
-
 // loading
 document.getElementById('report_form').addEventListener('submit', function() {
     document.querySelector('.modal_loading').style.display = 'flex';
 })
+
+
