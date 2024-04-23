@@ -166,8 +166,11 @@ def admin_search_reports(request):
         search_query = request.GET.get('search_query')
 
         data_operations = Operations.objects.distinct().filter(
-            Q(deal_name__icontains=search_query.lower()) |
-            Q(value__icontains=search_query.lower())
+            Q(deal_name__icontains=search_query) |
+            Q(value__icontains=search_query) |
+            Q(description__icontains=search_query) |
+            Q(user__first_name__icontains=search_query) |
+            Q(during_period__icontains=search_query)
         )
     else:
         data_operations = Operations.objects.all()

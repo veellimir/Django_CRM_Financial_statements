@@ -1,5 +1,5 @@
 const msgPositive = document.querySelector('.alert-success');
-      
+
 if (msgPositive || msgPositive) {
     setTimeout(() =>  {
         msgPositive.style.display = 'none';

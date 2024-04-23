@@ -1,5 +1,7 @@
 {% extends 'mainapp/base.html' %}
 
+{% load static %}
+
 {% block content %}
     <h1 class="title-h1_reports">Мои отчёты</h1>
     <div>
@@ -15,7 +17,7 @@
             <tr>
                 <th>Сделка</th>
                 <th>Имя пользователя</th>
-                <th>Сумма</th>
+                <th>Сумма руб.</th>
                 <th>Назначения платежа</th>
                 <th>Дата создания отчёта</th>
                 <th>За период</th>
@@ -27,11 +29,21 @@
                     <td>{{ user_operation.user.first_name }}</td>
                     <td>{{ user_operation.value }}</td>
                     <td>{{ user_operation.description }}</td>
-                    <td>{{ user_operation.created }}</td>
-                    <td>{{ user_operation.during_period|date:"d F Y" }}</td>
-                <td><img class="image_reports" src="{{ all_operation.image_cheque.url }}" alt="Изображения чека"></td>
+                    <td>{{ user_operation.created|date:"d.m.Y" }} г.</td>
+                    <td>{{ user_operation.during_period|date:"d.m.Y" }} г.</td>
+                    <td>
+                        <img class="image_reports"
+                        src="{{ user_operation.image_cheque.url }}"
+                        alt="Изображения чека"
+                        data-image="{{ user_operation.image_cheque.url }}">
+                    </td>
                 </tr>
             {% endfor %}
         </table>
+        <div class="modal_images" style="display: none;">
+            <span class="close">&times;</span>
+            <img id="modalImage" class="images_in_modal" src="" alt="Изображения чека">
+        </div>
     </section>
+    <script src="{% static 'js/modal_image.js' %}"></script>
 {% endblock %}

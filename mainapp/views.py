@@ -21,10 +21,7 @@ load_dotenv()
 def home(request):
     deal_names = get_list_deal()
     counterparty_names = get_list_counterparty()
-    # money_name = get_list_money()
     undisclosed_write = get_list_articles()
-    # file_yandex = get_files_yandex_disk()
-
     user_moneybag_id = request.user.moneybag_id
 
     if request.method == 'POST':
@@ -37,21 +34,24 @@ def home(request):
 
             instance = form.save(commit=False)
             instance.image_cheque_link = os.getenv('URL_LINK') + instance.image_cheque.url
-            instance.save()
-
             description = form.cleaned_data['description'] + ' ' + instance.image_cheque_link
             during_period = form.cleaned_data['during_period']
+
+            name_image = ('За_' + during_period.strftime('%d.%m.%Y') + '__'
+                          + request.user.first_name + '__'
+                          + form.cleaned_data['description'].replace(' ', '_'))
+
+            file_name = os.path.basename(instance.image_cheque.name)
+            new_file_name = (name_image + os.path.splitext(file_name)[1])
+
+            instance.image_cheque.name = os.path.join(os.path.dirname(instance.image_cheque.name), new_file_name)
+            instance.save()
 
             add_outcome(request, form, user_moneybag_id, description, during_period)
 
             image_url = unquote(instance.image_cheque.url)
             path_image_media = '.' + image_url
-
             dir_path = f'/reports/{datetime.datetime.now().year}/'
-
-            name_image = ('За ' + during_period.strftime('%d.%m.%Y') + '__'
-                          + request.user.first_name + '__' + form.cleaned_data['description'])
-
             disk_resources_upload(path_image_media, name_image, dir_path)
 
             messages.success(request, 'Отчёт успешно отправлен')
@@ -74,11 +74,13 @@ def home(request):
 @user_passes_test(lambda u: not u.is_superuser, login_url='all_reports')
 @login_required(login_url='login')
 def reports_user(request):
-    user_operations = Operations.objects.filter(user=request.user)
+    user_reports = Operations.objects.filter(user=request.user).order_by('-created')
+    search_query, user_operations = admin_search_reports(request)
 
     context = {
         'title': 'Мои отчёты',
         'user_operations': user_operations,
+        'search_query': search_query
     }
     return render(request, 'mainapp/reports_users.html', context)
 
