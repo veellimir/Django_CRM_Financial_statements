@@ -32,7 +32,12 @@ def home(request):
         if form.is_valid():
             operation = form.save(commit=False)
             operation.user = request.user
-            operation.deal_name = form.cleaned_data['selectedDealName']
+            operation.description = form.cleaned_data['description'].lower()
+
+            if operation.deal_name:
+                operation.deal_name = form.cleaned_data['selectedDealName'].lower()
+            else:
+                ''
 
             instance = form.save(commit=False)
             during_period = form.cleaned_data['during_period']

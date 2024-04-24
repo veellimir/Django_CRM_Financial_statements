@@ -17,7 +17,7 @@
 
     --warning: #840824;
     --success: #085e17;
-    
+    --yellow: #e5af2f;
 }
 a {color: var(--white);}
 /* MESSAGES */
@@ -411,6 +411,11 @@ header {
     object-fit: contain;
 }
 
+.color_warning_deal,
+.color_positive_deal {text-shadow: 0.5px 0px 0px black;}
+
+.color_warning_deal {color: var(--yellow); }
+.color_positive_deal {color: var(--success);}
 
 
 

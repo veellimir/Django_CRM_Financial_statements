@@ -25,12 +25,16 @@
             </tr>
             {% for user_operation in user_operations %}
                 <tr class="tr-wrapper-reports">
-                    <td>{{ user_operation.deal_name }}</td>
-                    <td>{{ user_operation.user.first_name }}</td>
-                    <td>{{ user_operation.value }}</td>
-                    <td>{{ user_operation.description }}</td>
-                    <td>{{ user_operation.created|date:"d.m.Y" }} г.</td>
-                    <td>{{ user_operation.during_period|date:"d.m.Y" }} г.</td>
+                    {% if user_operation.deal_name %}
+                        <td class="color_positive_deal">{{ user_operation.deal_name }}</td>
+                    {% else %}
+                        <td class="color_warning_deal">без сделки</td>
+                    {% endif %}
+                    <td class="color_positive_deal">{{ user_operation.user.first_name }}</td>
+                    <td class="color_positive_deal">{{ user_operation.value }}</td>
+                    <td class="color_positive_deal">{{ user_operation.description }}</td>
+                    <td class="color_positive_deal">{{ user_operation.created|date:"Y-m-d" }} г.</td>
+                    <td class="color_positive_deal">{{ user_operation.during_period|date:"Y-m-d" }} г.</td>
                     <td>
                         <img class="image_reports"
                         src="{{ user_operation.image_cheque.url }}"
