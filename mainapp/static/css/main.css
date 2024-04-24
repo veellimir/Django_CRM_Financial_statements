@@ -51,6 +51,18 @@ a {color: var(--white);}
 .alert-success {background: var(--success);}
 .alert-warning {background: var(--warning);}
 
+.wrapper--modile_menu {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    display: none;
+}
+.active_modile_icon {display: block;}
+
+.modile_icon {
+    width: 35px;
+    height: 35px;
+}
 header {
     background: var(--main_color);
     width: 100%;
@@ -69,12 +81,13 @@ header {
     display: flex;
     color: var(--white);
     width: 500px;
-
 }
+.wrapper-titlte_main h2 {margin-left: 20px;}
 .navigation ul {
     display: flex;
     justify-content: space-between;
 }
+.li_load_report {margin-right: 70px;}
 .navigation ul li {
     margin-right: 20px;
     font-size: 20px;
@@ -111,6 +124,9 @@ header {
 .wrapper-form {
     width: 35vh;
     height: auto;
+    max-width: 400px;
+    max-height: 800px;
+    min-width: 300px;
     padding: 20px;
     background: var(--auth_form);
     border-radius: 6px;
@@ -253,7 +269,7 @@ header {
     width: 100%;
     height: 100%;
     background: #444344c1;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     display: flex;
@@ -283,32 +299,6 @@ header {
         transform: translate(-20%, 50%) rotate(360deg);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*=======================
@@ -412,7 +402,7 @@ header {
 }
 
 .color_warning_deal,
-.color_positive_deal {text-shadow: 0.5px 0px 0px black;}
+.color_positive_deal {text-shadow: 0.1px 0px 0px black;}
 
 .color_warning_deal {color: var(--yellow); }
 .color_positive_deal {color: var(--success);}
@@ -421,13 +411,47 @@ header {
 
 
 
-@media screen and (max-width: 590px) {
-    .navigation {
-        display: block;
-        margin-right: 0;
+@media screen and (max-width: 1050px) {
+    /* HEADER BLOCK */
+    .wrapper--modile_menu {display: block;}
+    header {
+        width: 50%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        display: none;
     }
-    header {height: auto; padding: 10px;}
-    .navigation h1 {text-align: center; font-size: 19px;}
-    .wrapper-form h1 {font-size: 22px;}
-    .form_group {font-size: 16px;}
+    .navigation,
+    .wrapper-titlte_main {flex-direction: column;}
+    .wrapper-titlte_main h1 {text-align: center; margin-top: 30px;}
+    .wrapper-titlte_main h2 {margin-left: 0; text-align: center;}
+    .navigation ul {display: block; margin: 40px auto;}
+    .navigation ul li {margin: 20px 0; font-size: 23px; text-align: center;}
+    .logout {position: absolute; bottom: 0; left: 50%; transform: translate(-50%);}
+    .alert {width: 100%;}
+
+    /* REPORTS PAGE */
+    .title-h1_reports {margin-top: 20px;}
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 900px) {
+    /* HEADER BLOCK */
+    .wrapper-titlte_main h2 {
+        width: 250px;
+        margin: 20px auto;
+    }
+}
+
+
+
+@media screen and (max-width: 630px) {
+    /* HEADER BLOCK */
+    .wrapper-titlte_main h2 {display: none;}
+    header {width: 170px;}
 }

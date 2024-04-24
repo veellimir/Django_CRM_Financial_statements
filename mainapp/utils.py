@@ -39,6 +39,8 @@ def get_data_from_api(endpoint):
 def get_list_money():
     return get_data_from_api('moneybag')
 
+print(get_list_money())
+
 
 def get_list_deal():
     return get_data_from_api('deal')

@@ -14,11 +14,14 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <header>
+    <div class="wrapper--modile_menu" id="mobileMenu">
+        <img class="modile_icon" src="{% static 'mainapp/mobile.png' %}" alt="Мобильное меню">
+    </div>
+    <header id="header">
         <nav class="navigation">
             <div class="wrapper-titlte_main">
                 <h1><a href="{% url 'home' %}">intetix</a></h1>
-                <h2 style="margin-left: 20px;">система управнения отчётами</h2>
+                <h2>система управнения отчётами</h2>
             </div>
             <ul>
                 {% if user.is_authenticated %}
@@ -26,7 +29,7 @@
                 
                     {% else %}
                         <li><a href="{% url 'user_report' %}">Мои отчёты</a></li>
-                        <li style="margin-right: 70px;"><a href="{% url 'home' %}">Загрузить отчёт</a></li>
+                        <li class="li_load_report"><a href="{% url 'home' %}">Загрузить отчёт</a></li>
                     {% endif %}
 
                     <li class="logout"><a href="{% url 'logout' %}">Выйти</a></li>
