@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 from .forms import OperationsForm
 from .utils import (get_list_deal, get_list_counterparty, get_list_articles, add_outcome,
-                    disk_resources_upload, admin_search_reports)
+                    disk_resources_upload, admin_search_reports, get_list_money)
 
 from .models import Operations
 
@@ -90,12 +90,15 @@ def reports_user(request):
 
 @login_required(login_url='login')
 def all_reports(request):
+    list_money = get_list_money()
+
     all_operations = Operations.objects.all().order_by('-created')
     search_query, all_operations = admin_search_reports(request)
 
     context = {
         'title': 'Все отчёты',
         'all_operations': all_operations,
-        'search_query': search_query
+        'search_query': search_query,
+        # 'list_money': list_money
     }
     return render(request, 'mainapp/all_reports.html', context)
