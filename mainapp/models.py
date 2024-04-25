@@ -3,6 +3,11 @@ from django.conf import settings
 
 
 class Operations(models.Model):
+    NEW_REPORT = 0
+    VERIFY_REPORT = 1
+
+    STATUSES = ((NEW_REPORT, 'Новый'), (VERIFY_REPORT, 'Проверено'))
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE,
                              null=False, blank=False,
@@ -19,9 +24,7 @@ class Operations(models.Model):
     image_cheque_link = models.CharField(max_length=400, blank=True, null=True, verbose_name='Ссылка на изображения')
     during_period = models.DateTimeField(blank=False, null=False, verbose_name='За период')
     created = models.DateField(auto_now_add=True, verbose_name='Дата создания')
-
-    # def __str__(self):
-    #     return self.deal_name
+    status = models.SmallIntegerField(default=NEW_REPORT, choices=STATUSES)
 
     class Meta:
         verbose_name = 'отчёт'

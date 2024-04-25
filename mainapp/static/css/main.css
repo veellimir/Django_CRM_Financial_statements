@@ -335,6 +335,13 @@ header {
 /*=======================
   PAGE ALL REPORTS
 ========================*/
+.wrapper--parametrs_search {
+    display: flex;
+}
+.parametrs_search {
+    padding: 10px;
+}
+
 .form-search-reports {
     width: 100%;
     display: flex;
@@ -403,9 +410,18 @@ header {
 
 .color_warning_deal,
 .color_positive_deal {text-shadow: 0.1px 0px 0px black;}
+.color_warning_new {color: var(--warning); font-weight: bold;}
 
 .color_warning_deal {color: var(--yellow); }
 .color_positive_deal {color: var(--success);}
+
+.btn__valid_reports {
+    background: var(--main_color);
+    padding: 10px;
+    cursor: pointer;
+    color: var(--white);
+}
+
 
 
 
