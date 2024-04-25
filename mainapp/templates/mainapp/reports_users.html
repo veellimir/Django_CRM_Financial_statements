@@ -17,24 +17,28 @@
             <tr>
                 <th>Сделка</th>
                 <th>Имя пользователя</th>
-                <th>Сумма руб.</th>
+                <th>Сумма</th>
                 <th>Назначения платежа</th>
                 <th>Дата создания отчёта</th>
                 <th>За период</th>
+                <th>Статус</th>
                 <th>Чек</th>
             </tr>
             {% for user_operation in user_operations %}
                 <tr class="tr-wrapper-reports">
                     {% if user_operation.deal_name %}
-                        <td class="color_positive_deal">{{ user_operation.deal_name }}</td>
+                        <td>{{ user_operation.deal_name }}</td>
                     {% else %}
                         <td class="color_warning_deal">без сделки</td>
                     {% endif %}
-                    <td class="color_positive_deal">{{ user_operation.user.first_name }}</td>
-                    <td class="color_positive_deal">{{ user_operation.value }}</td>
-                    <td class="color_positive_deal">{{ user_operation.description }}</td>
-                    <td class="color_positive_deal">{{ user_operation.created|date:"Y-m-d" }} г.</td>
-                    <td class="color_positive_deal">{{ user_operation.during_period|date:"Y-m-d" }} г.</td>
+                    <td>{{ user_operation.user.first_name }}</td>
+                    <td>{{ user_operation.value }} руб.</td>
+                    <td>{{ user_operation.description }}</td>
+                    <td>{{ user_operation.created|date:"Y-m-d" }} г.</td>
+                    <td>{{ user_operation.during_period|date:"Y-m-d" }} г.</td>
+                    <td class="{% if user_operation.status == 1 %} color_positive_deal {% else %} color_warning_new {% endif %}">
+                        {{ user_operation.get_status_display }}
+                    </td>
                     <td>
                         <img class="image_reports"
                         src="{{ user_operation.image_cheque.url }}"

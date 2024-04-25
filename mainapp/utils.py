@@ -11,7 +11,7 @@ from .models import Operations
 load_dotenv()
 
 FIN_TABLO_URL = 'https://api.fintablo.ru/v1/'
-FIN_TABLO_TOKEN = os.getenv('API_KEY_FIN-TABLO')
+FIN_TABLO_TOKEN = os.getenv('API_KEY_FIN_TABLO')
 HEADERS_FIN_TABLO = {'Authorization': f'Bearer {FIN_TABLO_TOKEN}'}
 
 URL_YANDEX = 'https://cloud-api.yandex.net/v1/disk/resources'

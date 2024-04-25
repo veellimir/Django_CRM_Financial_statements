@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from urllib.parse import unquote
+from django.http import JsonResponse
 
 import os
 import datetime
@@ -77,7 +78,7 @@ def home(request):
 @user_passes_test(lambda u: not u.is_superuser, login_url='all_reports')
 @login_required(login_url='login')
 def reports_user(request):
-    user_reports = Operations.objects.filter(user=request.user).order_by('-created')
+    user_reports = Operations.objects.filter(user=request.user).order_by('status')
     search_query, user_operations = admin_search_reports(request)
 
     context = {
@@ -90,9 +91,9 @@ def reports_user(request):
 
 @login_required(login_url='login')
 def all_reports(request):
-    list_money = get_list_money()
+    # list_money = get_list_money()
 
-    all_operations = Operations.objects.all().order_by('-created')
+    all_operations = Operations.objects.all().order_by('status')
     search_query, all_operations = admin_search_reports(request)
 
     context = {
@@ -102,3 +103,13 @@ def all_reports(request):
         # 'list_money': list_money
     }
     return render(request, 'mainapp/all_reports.html', context)
+
+
+@login_required(login_url='login')
+def verify_report(request, operation_id):
+    operation = Operations.objects.get(id=operation_id)
+    operation.status = Operations.VERIFY_REPORT
+
+    messages.success(request, 'Отчёт успешно принят')
+    operation.save()
+    return redirect(request.META.get('HTTP_REFERER'))
