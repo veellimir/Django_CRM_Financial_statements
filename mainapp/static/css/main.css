@@ -338,9 +338,21 @@ header {
 .wrapper--parametrs_search {
     display: flex;
 }
-.parametrs_search {
-    padding: 10px;
+.default_btn,
+.active_button {
+    cursor: pointer;
+    width: 120px;
+    background: var(--main_color);
+    font-size: 20px;
+    color: var(--white);
+    text-align: left;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 6px;
 }
+
+.parametrs_search {padding: 5px;}
+.active_button {background: var(--auth_form);}
 
 .form-search-reports {
     width: 100%;
@@ -415,6 +427,9 @@ header {
 .color_warning_deal {color: var(--yellow); }
 .color_positive_deal {color: var(--success);}
 
+.td--valid_reports {
+    width: 100%;
+}
 .btn__valid_reports {
     background: var(--main_color);
     padding: 10px;

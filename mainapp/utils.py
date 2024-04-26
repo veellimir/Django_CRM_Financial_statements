@@ -39,6 +39,7 @@ def get_data_from_api(endpoint):
 def get_list_money():
     return get_data_from_api('moneybag')
 
+
 print(get_list_money())
 
 
@@ -162,6 +163,11 @@ def send_query_ya_disk(url, params):
 # create_year_folder('reports/')
 
 def admin_search_reports(request):
+    """
+    Функция поиска отчётов
+    :param request:
+    :return: Отчёт
+    """
     search_query = ''
 
     if request.GET.get('search_query'):

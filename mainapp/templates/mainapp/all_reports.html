@@ -16,12 +16,12 @@
 </div>
 <section class="wrapper--main_content-table">
    <div class="wrapper--parametrs_search" >
-        <div class="parametrs_search" style="display: none;">
-            Настройки
-            <div>
-                <button>Все</button>
-                <button>Новые</button>
-                <button>Проверено</button>
+        <div class="parametrs_search">
+            <h4>Фильтр</h4>
+            <div class="menu_settings">
+                <a href="{% url 'all_reports' %}"><button class="{% if page == 'all_reports' %} active_button {% else %} default_btn {% endif %}">Все</button></a> <br>
+                <a href="{% url 'new_report' %}"><button class="{% if page == 'new_report' %} active_button {% else %} default_btn {% endif %}">Новые</button></a> <br>
+                <a href="{% url 'verify_reports' %}"><button class="{% if page == 'verify_reports' %} active_button {% else %} default_btn {% endif %}">Проверено</button></a> <br>
             </div>
         </div>
         <table class="table-search_th">
@@ -36,6 +36,7 @@
                 <th>Чек</th>
             </tr>
             {% for all_operation in all_operations %}
+                {% if all_operation.status == 0 and page == 'new_report' or page == 'verify_reports' and all_operation.status == 1 or all_operation and page == 'all_reports' %}
                 <tr class="tr-wrapper-reports">
                     {% if all_operation.deal_name %}
                         <td>{{ all_operation.deal_name }}</td>
@@ -56,10 +57,13 @@
                         alt="Изображения чека"
                         data-image="{{ all_operation.image_cheque.url }}">
                     </td>
+                    {% if all_operation.status == 0 %}
+                    <td>
+                        <a href="{% url 'verify_report' all_operation.id %}" class="btn__valid_reports">Принять</a>
+                    </td>
+                    {% endif %}
                 </tr>
-                <td>
-                    <a href="{% url 'verify_report' all_operation.id %}" class="btn__valid_reports">Принять</a>
-                </td>
+                {% endif %}
             {% endfor %}
         </table>
    </div>
