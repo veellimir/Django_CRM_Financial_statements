@@ -9,6 +9,7 @@ class OperationsForm(forms.ModelForm):
         fields = [
             'deal_name',
             'selectedDealName',
+            'selectedDealCounterparty',
             'counterparty',
             'undisclosed',
             'value',
@@ -17,9 +18,10 @@ class OperationsForm(forms.ModelForm):
             'during_period',
         ]
         labels = {
-            'deal_name': 'Сделки',
-            'counterparty': 'Контрагенты',
+            'deal_name': 'ID Сделки',
             'selectedDealName': 'Имя сделки',
+            'counterparty': 'ID Контрагенты',
+            'selectedDealCounterparty': 'Контрагенты',
             'undisclosed': 'Неразнесенное списание',
             'value': 'Сумма',
             'description': 'Назначение платежа',
