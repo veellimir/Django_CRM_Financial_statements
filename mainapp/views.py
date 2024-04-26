@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from urllib.parse import unquote
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 import os
 import datetime
@@ -78,7 +79,7 @@ def home(request):
 @user_passes_test(lambda u: not u.is_superuser, login_url='all_reports')
 @login_required(login_url='login')
 def reports_user(request):
-    user_reports = Operations.objects.filter(user=request.user).order_by('status')
+    user_reports = Operations.objects.filter(user=request.user).order_by('-status')
     search_query, user_operations = admin_search_reports(request)
 
     context = {
@@ -90,19 +91,36 @@ def reports_user(request):
 
 
 @login_required(login_url='login')
-def all_reports(request):
-    # list_money = get_list_money()
+def all_reports(request, endpoint):
+    """
+    Динамическая функция для фильтрации
+    :param request:
+    :param endpoint:
+    :return: Отфильтрованный список отчётов:
+    """
+    page = endpoint
 
-    all_operations = Operations.objects.all().order_by('status')
+    all_operations = Operations.objects.all().order_by('-status')
     search_query, all_operations = admin_search_reports(request)
 
     context = {
         'title': 'Все отчёты',
         'all_operations': all_operations,
         'search_query': search_query,
+        'page': page
         # 'list_money': list_money
     }
     return render(request, 'mainapp/all_reports.html', context)
+
+
+@login_required(login_url='login')
+def new_report(request):
+    return all_reports(request, 'new_report')
+
+
+@login_required(login_url='login')
+def verify_reports(request):
+    return all_reports(request, 'verify_reports')
 
 
 @login_required(login_url='login')

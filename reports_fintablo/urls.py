@@ -13,7 +13,14 @@ urlpatterns = [
 
     path('', views.home, name='home'),
     path('my_report/', views.reports_user, name='user_report'),
-    path('all-reports/', views.all_reports, name='all_reports'),
+
+    # path('all-reports/', views.all_reports, name='all_reports'),
+    # path('new-report/', views.new_report, name='new_report'),
+    # path('verify-reports/', views.verify_reports, name='verify_reports'),
+
+    path('all-reports/', views.all_reports, {'endpoint': 'all_reports'}, name='all_reports'),
+    path('new-report/', views.all_reports, {'endpoint': 'new_report'}, name='new_report'),
+    path('verify-reports/', views.all_reports, {'endpoint': 'verify_reports'}, name='verify_reports'),
 
     path('verify-report/<int:operation_id>/', views.verify_report, name='verify_report'),
 ]
