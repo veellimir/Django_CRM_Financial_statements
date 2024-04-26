@@ -1,6 +1,7 @@
 {% extends 'mainapp/base.html' %}
 
 {% load static %}
+{% load humanize %}
 
 {% block content %}
     <h1 class="title-h1_reports">Мои отчёты</h1>
@@ -16,7 +17,6 @@
         <table class="table-search_th">
             <tr>
                 <th>Сделка</th>
-                <th>Имя пользователя</th>
                 <th>Сумма</th>
                 <th>Назначения платежа</th>
                 <th>Дата создания отчёта</th>
@@ -31,8 +31,7 @@
                     {% else %}
                         <td class="color_warning_deal">без сделки</td>
                     {% endif %}
-                    <td>{{ user_operation.user.first_name }}</td>
-                    <td>{{ user_operation.value }} руб.</td>
+                    <td>{{ user_operation.value|intcomma }} руб.</td>
                     <td>{{ user_operation.description }}</td>
                     <td>{{ user_operation.created|date:"Y-m-d" }} г.</td>
                     <td>{{ user_operation.during_period|date:"Y-m-d" }} г.</td>
