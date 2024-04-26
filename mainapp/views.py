@@ -38,8 +38,9 @@ def home(request):
 
             if operation.deal_name:
                 operation.deal_name = form.cleaned_data['selectedDealName'].lower()
-            else:
-                ''
+
+            if operation.selectedDealCounterparty:
+                operation.selectedDealCounterparty = form.cleaned_data['selectedDealCounterparty'].lower()
 
             instance = form.save(commit=False)
             during_period = form.cleaned_data['during_period']
@@ -108,7 +109,6 @@ def all_reports(request, endpoint):
         'all_operations': all_operations,
         'search_query': search_query,
         'page': page
-        # 'list_money': list_money
     }
     return render(request, 'mainapp/all_reports.html', context)
 

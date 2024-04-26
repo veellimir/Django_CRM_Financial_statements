@@ -28,6 +28,7 @@
         <table class="table-search_th">
             <tr>
                 <th>Сделка</th>
+                <th>Контрагент</th>
                 <th>Имя пользователя</th>
                 <th>Сумма</th>
                 <th>Назначения платежа</th>
@@ -38,12 +39,20 @@
             </tr>
             {% for all_operation in all_operations %}
                 {% if all_operation.status == 0 and page == 'new_report' or page == 'verify_reports' and all_operation.status == 1 or all_operation and page == 'all_reports' %}
+                
                 <tr class="tr-wrapper-reports">
                     {% if all_operation.deal_name %}
                         <td>{{ all_operation.deal_name }}</td>
                     {% else %}
                         <td class="color_warning_deal">без сделки</td>
                     {% endif %}
+
+                    {% if all_operation.selectedDealCounterparty %}
+                    <td>{{ all_operation.selectedDealCounterparty }}</td>
+                    {% else %}
+                        <td class="color_warning_deal">без контрагета</td>
+                    {% endif %}
+
                     <td>{{ all_operation.user.last_name }} {{ all_operation.user.first_name|first }}.</td>
                     <td>{{ all_operation.value|intcomma }} руб.</td>
                     <td>{{ all_operation.description }}</td>

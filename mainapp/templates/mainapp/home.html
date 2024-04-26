@@ -32,10 +32,10 @@
 
                     <select id="deal_name" name="counterparty" class="selectedDeal modal_hidden">
                         {% for counterparty in counterparty_names %}
-                            <option  value="{{ counterparty.id }}" data-option-value="{{ counterparty.id }}">{{ counterparty.name }}</option>
+                            <option  value="{{ counterparty.id }}" data-option-value="{{ counterparty.name }}">{{ counterparty.name }}</option>
                         {% endfor %}
                     </select>
-                    <input name="counterparty" id="selectedDealName" data-option-value="{{ counterparty.name }}" class="modal_hidden">
+                    <input name="selectedDealCounterparty" id="selectedDealName" data-option-value="{{ counterparty.name }}" class="modal_hidden">
                 </div>
                 
                 <div class="form-operation_group">

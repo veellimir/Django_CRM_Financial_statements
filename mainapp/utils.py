@@ -82,7 +82,7 @@ def add_outcome(request, form, moneybag_id, description, during_period):
     if form.cleaned_data.get('deal_name'):
         payload["dealId"] = form.cleaned_data['deal_name']
 
-    if form.cleaned_data.get('counterparty'):
+    if form.cleaned_data.get('selectedDealCounterparty'):
         payload["partnerId"] = form.cleaned_data['counterparty']
 
     url_pattern = FIN_TABLO_URL + 'transaction'
