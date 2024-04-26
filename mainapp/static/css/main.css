@@ -351,8 +351,8 @@ header {
     border-radius: 6px;
 }
 
-.parametrs_search {padding: 5px;}
-.active_button {background: var(--auth_form);}
+.parametrs_search {padding: 0 10px;}
+.active_button {background: var(--gray); color: #453C41;}
 
 .form-search-reports {
     width: 100%;

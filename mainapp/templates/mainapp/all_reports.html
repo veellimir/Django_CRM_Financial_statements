@@ -1,6 +1,7 @@
 {% extends 'mainapp/base.html' %}
 
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 <div>
@@ -43,8 +44,8 @@
                     {% else %}
                         <td class="color_warning_deal">без сделки</td>
                     {% endif %}
-                    <td>{{ all_operation.user.first_name }}</td>
-                    <td>{{ all_operation.value }} руб.</td>
+                    <td>{{ all_operation.user.last_name }} {{ all_operation.user.first_name|first }}.</td>
+                    <td>{{ all_operation.value|intcomma }} руб.</td>
                     <td>{{ all_operation.description }}</td>
                     <td>{{ all_operation.created|date:"Y-m-d" }} г.</td>
                     <td>{{ all_operation.during_period|date:"Y-m-d" }} г.</td>
