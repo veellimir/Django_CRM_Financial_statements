@@ -45,9 +45,10 @@ def home(request):
             instance = form.save(commit=False)
             during_period = form.cleaned_data['during_period']
 
-            name_image = ('За_' + during_period.strftime('%d.%m.%Y') + '__'
-                          + request.user.first_name + '__'
-                          + form.cleaned_data['description'].replace(' ', '_'))
+            name_image = ('За_' + during_period.strftime('%d.%m.%Y') + ' '
+                          + request.user.last_name + '_' + request.user.first_name[0] + '.__'
+                          + form.cleaned_data['description'] + ' '
+                          + operation.deal_name).replace(' ', '__')
 
             new_file_name = name_image + os.path.splitext(instance.image_cheque.name)[1]
             instance.image_cheque.name = os.path.join(os.path.dirname(instance.image_cheque.name), new_file_name)

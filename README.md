@@ -6,7 +6,46 @@
 автоматически отправлять их в раздел операций ДДС.
 </p>
 <hr>
-<h3>Функционал</h3>
+<h3 align="center" style="color: darkcyan;">The stack used:</h3>
+
+<div align="center" style="background-color: white; padding: 20px; border-radius: 5px;">
+   <b><p style="color: black;">Python 3.10;</p></b>
+   <b><p style="color: black;">Django 5.0.2;</p></b>
+   <b><p style="color: black;">JavaScript;</p></b>
+   <b><p style="color: black;">Html;</p></b>
+   <b><p style="color: black;">Css;</p>
+   <b><p style="color: black;">Pillow;</p></b>
+   <b><p style="color: black;">Requests</p></b>
+   <b><p style="color: black;">Python-dotenv</p></b>
+   <b><p style="color: black;">REST API</p></b>
+</div>
+<hr>
+
+## Functionality
+   <h4>Done:</h4>
+   :white_check_mark: Регистрация <br>
+   :white_check_mark: Авторизация <br>
+   :white_check_mark: Разлогинивание (<b>Необходимо войти</b>)<br>
+   :white_check_mark: Загрузка отчёта в Базу Данных (<b>Необходимо войти</b>)<br>
+   :white_check_mark: Раздел пользователя<br>
+   :white_check_mark: Раздел администратора<br>
+   :white_check_mark: Поисковая строка<br>
+   :white_check_mark: Фильтрация<br>
+   :white_check_mark: Изменение статуса отчёта<br>
+   :white_check_mark: Оправка данных отчёта по API в ФинТабло<br>
+   :white_check_mark: Оправка изображения по API на Я-Диск 
+   (название картинки будет зависеть, от того что пользователь ввёл в форму)<br>
+<hr>   
+
+   <h4>Works:</h4>
+   :black_square_button: Адаптация сайта под мобильные устройства<br>
+<hr>
+
+   <h4>Not ready:</h4>
+   :negative_squared_cross_mark: Редактирования отчётов<br>
+<hr>
+
+<h3>Описание</h3>
 <p>
 На главной странице предоставлен удобный поиск с выпадающем списком, 
 в котором содержатся данные из "Финтабло". Четыре последних поля 
@@ -26,6 +65,39 @@
 инициалы, а также информация о цели составления отчёта.</p>
 <img src="./readme_media/6.png">
 <hr>
+
+<p>
+Когда мы входим как обычные пользователи, у нас есть возможность 
+перейти на страницу "Мои отчёты". На этой странице мы можем 
+отследить все операции и выполнить поиск в пределах своего пользователя.
+</p>
+<img src="./readme_media/15.png">
+<hr>
+
+<p>
+Когда мы входим как администратор, у нас есть возможность отслеживать 
+все операции различных пользователей. Доступны удобные фильтры по 
+категориям: "Все", "Новые" и "Проверено", а также поисковая строка 
+для удобства навигации.
+</p>
+<img src="./readme_media/16.png">
+<img src="./readme_media/17.png">
+<img src="./readme_media/18.png">
+<hr>
+
+<p>
+При нажатии на изображение, открывается модальное окно с изображением чека операции.
+</p>
+<img src="./readme_media/19.png">
+<hr>
+
+<p>
+Также доступна мобильная версия приложения.
+</p>
+<img src="./readme_media/20.png">
+<img src="./readme_media/21.png">
+<hr>
+
 <h3>Для разработки</h3>
 
 #### Важно ! добавить файл .env с секретными ключами и токенами

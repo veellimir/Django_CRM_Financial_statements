@@ -52,6 +52,10 @@
                     <input name="undisclosed" id="selectedDealName" data-option-value="{{ undisclosed.name }}" class="modal_hidden">
                 </div>
                 <div class="form-operation_group">
+                    <label>За период</label>
+                    {{ form.during_period }}
+                </div>
+                <div class="form-operation_group">
                     <label>Сумма операции</label>
                     {{ form.value }}
                 </div>
@@ -59,10 +63,10 @@
                     <label>Назначения платежа</label>
                     {{ form.description }}
                 </div>
-                <div class="form-operation_group">
+                <!-- <div class="form-operation_group">
                     <label>За период</label>
                     {{ form.during_period }}
-                </div>
+                </div> -->
                 <div class="form-operation_group">
                     <label>Чек</label>
                     {{ form.image_cheque }}
