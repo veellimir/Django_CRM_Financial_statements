@@ -21,7 +21,7 @@
                 <th>Сумма</th>
                 <th>Назначения платежа</th>
                 <th>Дата создания отчёта</th>
-                <th>За период</th>
+                <th>Дата операции</th>
                 <th>Статус</th>
                 <th>Чек</th>
             </tr>
@@ -41,7 +41,9 @@
                     <td>{{ user_operation.description }}</td>
                     <td>{{ user_operation.created|date:"Y-m-d" }} г.</td>
                     <td>{{ user_operation.during_period|date:"Y-m-d" }} г.</td>
-                    <td class="{% if user_operation.status == 1 %} color_positive_deal {% else %} color_warning_new {% endif %}">
+                    <td class="{% if user_operation.status == 1 %} color_positive_deal 
+                               {% elif user_operation.status == 0 %} color_warning_new 
+                               {% else %} color_rejected_new {% endif %}">
                         {{ user_operation.get_status_display }}
                     </td>
                     <td>
