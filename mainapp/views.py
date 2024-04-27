@@ -45,10 +45,19 @@ def home(request):
             instance = form.save(commit=False)
             during_period = form.cleaned_data['during_period']
 
-            name_image = ('За_' + during_period.strftime('%d.%m.%Y') + ' '
+            # name_image = ('За_' + during_period.strftime('%d.%m.%Y') + ' '
+            #               + request.user.last_name + '_' + request.user.first_name[0] + '.__'
+            #               + form.cleaned_data['description'] + ' '
+            #               + operation.deal_name).replace(' ', '__')
+
+            name_image = ('За__' + during_period.strftime('%d.%m.%Y') + '__'
                           + request.user.last_name + '_' + request.user.first_name[0] + '.__'
-                          + form.cleaned_data['description'] + ' '
-                          + operation.deal_name).replace(' ', '__')
+                          + form.cleaned_data['description'] + ' ')
+
+            if operation.deal_name:
+                name_image += operation.deal_name
+
+            name_image = name_image.replace(' ', '__')
 
             new_file_name = name_image + os.path.splitext(instance.image_cheque.name)[1]
             instance.image_cheque.name = os.path.join(os.path.dirname(instance.image_cheque.name), new_file_name)
@@ -130,5 +139,15 @@ def verify_report(request, operation_id):
     operation.status = Operations.VERIFY_REPORT
 
     messages.success(request, 'Отчёт успешно принят')
+    operation.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url='login')
+def rejected_report(request, operation_id):
+    operation = Operations.objects.get(id=operation_id)
+    operation.status = Operations.REJECTED
+
+    messages.success(request, 'Отчёт отклонён')
     operation.save()
     return redirect(request.META.get('HTTP_REFERER'))

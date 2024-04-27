@@ -5,8 +5,13 @@ from django.conf import settings
 class Operations(models.Model):
     NEW_REPORT = 0
     VERIFY_REPORT = 1
+    REJECTED = 2
 
-    STATUSES = ((NEW_REPORT, 'Новый'), (VERIFY_REPORT, 'Проверено'))
+    STATUSES = (
+        (NEW_REPORT, 'Новый'),
+        (VERIFY_REPORT, 'Проверено и отправлено'),
+        (REJECTED, 'Отклонено администратором')
+    )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE,
