@@ -40,7 +40,7 @@ def get_list_money():
     return get_data_from_api('moneybag')
 
 
-print(get_list_money())
+# print(get_list_money())
 
 
 def get_list_deal():
