@@ -21,7 +21,7 @@
                             <option value="{{ deal_name.id }}" data-option-value="{{ deal_name.name }}">{{ deal_name.name }}</option>
                         {% endfor %}
                     </select>
-                    <input name="selectedDealName" id="selectedDealName" data-option-value="{{ deal_name.name }}" class="modal_hidden">
+                    <input name="selectedDealName" id="selectedDealName" data-option-value="{{ deal_name.id }}" class="modal_hidden">
                 </div>
                 
                 <div class="form-operation_group">
@@ -31,11 +31,12 @@
                     <div id="searchResults" class="search-results"></div>
 
                     <select id="deal_name" name="counterparty" class="selectedDeal modal_hidden">
+                        <option value=""></option>
                         {% for counterparty in counterparty_names %}
                             <option  value="{{ counterparty.id }}" data-option-value="{{ counterparty.name }}">{{ counterparty.name }}</option>
                         {% endfor %}
                     </select>
-                    <input name="selectedDealCounterparty" id="selectedDealName" data-option-value="{{ counterparty.name }}" class="modal_hidden">
+                    <input name="selectedDealCounterparty" id="selectedDealName" data-option-value="{{ counterparty.id }}" class="modal_hidden">
                 </div>
                 
                 <div class="form-operation_group">
@@ -45,6 +46,7 @@
                     <div id="searchResults" class="search-results"></div>
 
                     <select name="undisclosed" id="deal_name" class="selectedDeal modal_hidden">
+                        <option value=""></option>
                         {% for undisclosed in undisclosed_write %}
                             <option value="{{ undisclosed.id }}" data-option-value="{{ undisclosed.id }}">{{ undisclosed.name }}</option>
                         {% endfor %}
