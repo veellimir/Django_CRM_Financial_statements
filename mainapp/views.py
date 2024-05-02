@@ -34,6 +34,7 @@ def home(request):
         if form.is_valid():
             operation = form.save(commit=False)
             operation.user = request.user
+            operation.selectedDealName = form.cleaned_data['deal_name']
             operation.description = form.cleaned_data['description'].lower()
 
             if operation.deal_name:
@@ -44,11 +45,6 @@ def home(request):
 
             instance = form.save(commit=False)
             during_period = form.cleaned_data['during_period']
-
-            # name_image = ('За_' + during_period.strftime('%d.%m.%Y') + ' '
-            #               + request.user.last_name + '_' + request.user.first_name[0] + '.__'
-            #               + form.cleaned_data['description'] + ' '
-            #               + operation.deal_name).replace(' ', '__')
 
             name_image = ('За__' + during_period.strftime('%d.%m.%Y') + '__'
                           + request.user.last_name + '_' + request.user.first_name[0] + '.__'
@@ -64,13 +60,8 @@ def home(request):
             description = form.cleaned_data['description'] + ' ' + os.getenv('URL_LINK') + '/media/' + new_file_name
             instance.save()
 
-            add_outcome(request, form, user_moneybag_id, description, during_period)
-
-            image_url = unquote(instance.image_cheque.url)
-            path_image_media = '.' + image_url
-            dir_path = f'/reports/{datetime.datetime.now().year}/'
-
-            disk_resources_upload(path_image_media, name_image, dir_path)
+            # image_url = unquote(instance.image_cheque.url)
+            # path_image_media = '.' + image_url
 
             messages.success(request, 'Отчёт успешно отправлен')
             return redirect('home')
@@ -84,6 +75,7 @@ def home(request):
         'counterparty_names': counterparty_names,
         'undisclosed_write': undisclosed_write
     }
+    print(counterparty_names)
     return render(request, 'mainapp/home.html', context)
 
 
@@ -138,9 +130,38 @@ def verify_report(request, operation_id):
     operation = Operations.objects.get(id=operation_id)
     operation.status = Operations.VERIFY_REPORT
 
+    user_moneybag_id = operation.user.moneybag_id
+    description = operation.description + ' ' + os.getenv('URL_LINK') + '/media/' + operation.image_cheque.name
+    during_period = operation.during_period
+
+    form_data = {
+        'deal_name': operation.selectedDealName,
+        'value': operation.value,
+        'description': operation.description,
+        'during_period': operation.during_period,
+        'partnerId': operation.counterparty,
+    }
+    add_outcome(request, form_data, user_moneybag_id, description, during_period)
+
+    image_url = unquote(operation.image_cheque.url)
+    path_image_media = '.' + image_url
+    name_image = unquote(operation.image_cheque.url)
+
+    dir_path = f'/reports/{datetime.datetime.now().year}/'
+    disk_resources_upload(path_image_media, name_image, dir_path)
+
     messages.success(request, 'Отчёт успешно принят')
     operation.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url='login')
+def delete_report(request, operation_id):
+    operation = get_object_or_404(Operations, pk=operation_id)
+
+    if request.method == 'POST':
+        operation.delete()
+        return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required(login_url='login')

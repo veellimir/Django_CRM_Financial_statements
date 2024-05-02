@@ -424,6 +424,17 @@ header {
     flex-direction: column;
     width: 120px;
 }
+.del-wrapper_btn {
+    width: 50px;
+    height: 50px;
+}
+.btn-del-report {background: transparent;}
+.img_del_report {
+    width: 40px;
+    height: 40px;
+    margin: 35px auto;
+    cursor: pointer;
+}
 .color_warning_deal,
 .color_positive_deal {text-shadow: 0.1px 0px 0px black;}
 .color_warning_new {color: var(--yellow); font-weight: bold;}

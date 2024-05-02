@@ -57,11 +57,11 @@ def get_list_articles():
 
 # ======================================================================================================================
 # REQUEST POST
-def add_outcome(request, form, moneybag_id, description, during_period):
+def add_outcome(request, form_data, moneybag_id, description, during_period):
     """
     Функция отправки данных в ФинТабло
     :param request:
-    :param form:
+    :param form_data: Словарь данных
     :param moneybag_id:
     :param description:
     :param during_period:
@@ -70,23 +70,22 @@ def add_outcome(request, form, moneybag_id, description, during_period):
     during_period_str = during_period.strftime('%d.%m.%Y')
 
     payload = {
-        "value": form.cleaned_data['value'],
+        "value": form_data['value'],
         "moneybagId": moneybag_id,
         "group": "outcome",
         "description": description,
         "date": during_period_str,
     }
-    if form.cleaned_data.get('undisclosed'):
-        payload["categoryId"] = form.cleaned_data['undisclosed']
+    if form_data.get('undisclosed'):
+        payload["categoryId"] = form_data['undisclosed']
 
-    if form.cleaned_data.get('deal_name'):
-        payload["dealId"] = form.cleaned_data['deal_name']
+    if form_data.get('deal_name'):
+        payload["dealId"] = form_data['deal_name']
 
-    if form.cleaned_data.get('selectedDealCounterparty'):
-        payload["partnerId"] = form.cleaned_data['counterparty']
+    if form_data.get('partnerId'):
+        payload["partnerId"] = form_data['partnerId']
 
     url_pattern = FIN_TABLO_URL + 'transaction'
-    print(payload)
     try:
         response = requests.post(url_pattern, json=payload, headers=HEADERS_FIN_TABLO)
         response.raise_for_status()

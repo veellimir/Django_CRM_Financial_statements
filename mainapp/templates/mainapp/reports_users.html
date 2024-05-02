@@ -41,8 +41,8 @@
                     <td>{{ user_operation.description }}</td>
                     <td>{{ user_operation.created|date:"Y-m-d" }} г.</td>
                     <td>{{ user_operation.during_period|date:"Y-m-d" }} г.</td>
-                    <td class="{% if user_operation.status == 1 %} color_positive_deal 
-                               {% elif user_operation.status == 0 %} color_warning_new 
+                    <td class="{% if user_operation.status == 1 %} color_positive_deal
+                               {% elif user_operation.status == 0 %} color_warning_new
                                {% else %} color_rejected_new {% endif %}">
                         {{ user_operation.get_status_display }}
                     </td>
@@ -52,6 +52,16 @@
                         alt="Изображения чека"
                         data-image="{{ user_operation.image_cheque.url }}">
                     </td>
+                    {% if user_operation.status == 2 %}
+                    <td class="td-a-btn_wrapper del-wrapper_btn">
+                        <form action="{% url 'delete_report' user_operation.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-del-report">
+                                <img class="img_del_report" src="{% static 'mainapp/del.png' %}" alt="Удалить">
+                            </button>
+                        </form>
+                    </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

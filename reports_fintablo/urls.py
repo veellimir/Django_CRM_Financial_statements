@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('verify-report/<int:operation_id>/', views.verify_report, name='verify_report'),
     path('rejected-report/<int:operation_id>/', views.rejected_report, name='rejected_report'),
+    path('delete-report/<int:operation_id>/', views.delete_report, name='delete_report'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
