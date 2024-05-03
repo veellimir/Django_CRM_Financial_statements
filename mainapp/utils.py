@@ -19,10 +19,9 @@ YANDEX_TOKEN = os.getenv('API_YANDEX_DISK')
 HEADERS_YANDEX = {'Authorization': f'OAuth {YANDEX_TOKEN}'}
 
 
-# REQUEST GET LIST
 def get_data_from_api(endpoint):
     """
-    Динамическая функция для получения списков
+    Динамическое получение списков данных
     :param endpoint:
     :return: moneybag, deal, partner, category
     """
@@ -40,9 +39,6 @@ def get_list_money():
     return get_data_from_api('moneybag')
 
 
-# print(get_list_money())
-
-
 def get_list_deal():
     return get_data_from_api('deal')
 
@@ -55,11 +51,9 @@ def get_list_articles():
     return get_data_from_api('category')
 
 
-# ======================================================================================================================
-# REQUEST POST
 def add_outcome(request, form_data, moneybag_id, description, during_period):
     """
-    Функция отправки данных в ФинТабло
+    Отправка данных в ФинТабло
     :param request:
     :param form_data: Словарь данных
     :param moneybag_id:
@@ -89,16 +83,14 @@ def add_outcome(request, form_data, moneybag_id, description, during_period):
     try:
         response = requests.post(url_pattern, json=payload, headers=HEADERS_FIN_TABLO)
         response.raise_for_status()
-        print('Операция добавлена')
 
     except requests.exceptions.RequestException as e:
-        print('Произошла ошибка при выполнении запроса:', e)
         messages.error(request, 'Произошла ошибка при выполнении запроса. Пожалуйста, попробуйте еще раз.')
 
 
 def disk_resources_upload(file_path, name_image, dir_path):
     """
-    Функция загрузки изображения на Я-Диск
+    Загрузка изображения на Я-Диск
     :param file_path:
     :param name_image:
     :param dir_path:
@@ -127,43 +119,9 @@ def send_query_ya_disk(url, params):
     return response.json() if response.ok else {'error': 'Не удалось получить URL-адрес для загрузки'}
 
 
-# GET YANDEX_DISK FILES
-# def get_files_yandex_disk():
-#     url_query = URL_YANDEX + '/last-uploaded'
-#
-#     try:
-#         response = requests.get(url_query, headers=HEADERS_YANDEX)
-#         response.raise_for_status()
-#         data = response.json()
-#
-#         print('file', data)
-#         return data
-#     except requests.exceptions.RequestException as e:
-#         print(f"Произошла ошибка при запросе к Яндекс.Диску: {e}")
-#         return None
-
-
-# PUT FOLDER YEAR TO YANDEX_DISK
-# def create_year_folder(folder_name):
-#     try:
-#         current_year = datetime.datetime.now().year
-#         folder_path_with_year = os.path.join(folder_name + str(current_year))
-#
-#         url_query = f'{URL_YANDEX}'
-#         folder_path = {'path': folder_path_with_year}
-#
-#         response = requests.put(url_query, headers=HEADERS_YANDEX, params=folder_path)
-#         print(f'{folder_path} статус код: ', response.status_code)
-#
-#     except Exception as e:
-#         print(f"Произошла ошибка: {e}")
-
-
-# create_year_folder('reports/')
-
 def admin_search_reports(request):
     """
-    Функция поиска отчётов
+    Поиск отчётов
     :param request:
     :return: Отчёт
     """

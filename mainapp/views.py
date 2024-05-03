@@ -2,19 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from urllib.parse import unquote
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 
 import os
 import datetime
 
 from dotenv import load_dotenv
 
+from .models import Operations
 from .forms import OperationsForm
 from .utils import (get_list_deal, get_list_counterparty, get_list_articles, add_outcome,
-                    disk_resources_upload, admin_search_reports, get_list_money)
-
-from .models import Operations
+                    disk_resources_upload, admin_search_reports)
 
 load_dotenv()
 
@@ -60,9 +57,6 @@ def home(request):
             description = form.cleaned_data['description'] + ' ' + os.getenv('URL_LINK') + '/media/' + new_file_name
             instance.save()
 
-            # image_url = unquote(instance.image_cheque.url)
-            # path_image_media = '.' + image_url
-
             messages.success(request, 'Отчёт успешно отправлен')
             return redirect('home')
     else:
@@ -75,7 +69,6 @@ def home(request):
         'counterparty_names': counterparty_names,
         'undisclosed_write': undisclosed_write
     }
-    print(counterparty_names)
     return render(request, 'mainapp/home.html', context)
 
 
@@ -96,7 +89,7 @@ def reports_user(request):
 @login_required(login_url='login')
 def all_reports(request, endpoint):
     """
-    Динамическая функция для фильтрации
+    Динамическая фильтрация
     :param request:
     :param endpoint:
     :return: Отфильтрованный список отчётов:
@@ -116,16 +109,6 @@ def all_reports(request, endpoint):
 
 
 @login_required(login_url='login')
-def new_report(request):
-    return all_reports(request, 'new_report')
-
-
-@login_required(login_url='login')
-def verify_reports(request):
-    return all_reports(request, 'verify_reports')
-
-
-@login_required(login_url='login')
 def verify_report(request, operation_id):
     operation = Operations.objects.get(id=operation_id)
     operation.status = Operations.VERIFY_REPORT
@@ -141,18 +124,31 @@ def verify_report(request, operation_id):
         'during_period': operation.during_period,
         'partnerId': operation.counterparty,
     }
-    add_outcome(request, form_data, user_moneybag_id, description, during_period)
+    try:
+        add_outcome(request, form_data, user_moneybag_id, description, during_period)
 
-    image_url = unquote(operation.image_cheque.url)
-    path_image_media = '.' + image_url
-    name_image = unquote(operation.image_cheque.url)
+        image_url = unquote(operation.image_cheque.url)
+        path_image_media = '.' + image_url
+        name_image = unquote(operation.image_cheque.url)
 
-    dir_path = f'/reports/{datetime.datetime.now().year}/'
-    disk_resources_upload(path_image_media, name_image, dir_path)
+        dir_path = f'/reports/{datetime.datetime.now().year}/'
+        disk_resources_upload(path_image_media, name_image, dir_path)
 
-    messages.success(request, 'Отчёт успешно принят')
-    operation.save()
+        messages.success(request, 'Отчёт успешно принят')
+        operation.save()
+    except Exception as e:
+        messages.error(request, f'Ошибка отправки отчёта {e}')
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url='login')
+def new_report(request):
+    return all_reports(request, 'new_report')
+
+
+@login_required(login_url='login')
+def verify_reports(request):
+    return all_reports(request, 'verify_reports')
 
 
 @login_required(login_url='login')
