@@ -16,3 +16,9 @@ modalImage.addEventListener('click', function(event) {
         modalImage.style.display = 'none';
     }
 });
+
+document.querySelectorAll(".report_form").forEach(function(form) {
+    form.addEventListener("submit", function() {
+            document.querySelector(".modal_loading").style.display = "flex";
+    });
+});

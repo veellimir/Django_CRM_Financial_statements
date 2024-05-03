@@ -446,6 +446,11 @@ header {
 .td--valid_reports {
     width: 100%;
 }
+.input_btn__valid_reports {
+    width: 104px;
+    height: 38px;
+    font-size: 17px;
+}
 .btn__valid_reports {
     background: var(--main_color);
     padding: 10px;
