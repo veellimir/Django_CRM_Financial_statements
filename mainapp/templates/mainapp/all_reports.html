@@ -71,14 +71,23 @@
                     </td>
                     {% if all_operation.status == 0 %}
                     <td class="td-a-btn_wrapper">
-                        <a href="{% url 'verify_report' all_operation.id %}" class="btn__valid_reports">Принять</a>
+                        <form action="{% url 'verify_report' all_operation.id %}" class="report_form" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Принять" class="btn__valid_reports input_btn__valid_reports">
+
+                            <div class="modal_loading" style="display: none;">
+                                <div class="circle"></div>
+                                <h3>Отправляю отчёт</h3>
+                            </div>
+                        </form>
                         <a href="{% url 'rejected_report' all_operation.id %}" class="btn__valid_reports" style="background: var(--warning);">Отклонить</a>
                     </td>
-                    {% endif %}
                 </tr>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </table>
+        
    </div>
     <div class="modal_images" style="display: none;">
         <img id="modalImage" class="images_in_modal" src="" alt="Изображения чека">
