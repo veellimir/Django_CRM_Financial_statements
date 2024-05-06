@@ -34,6 +34,7 @@
                 <th>Назначения платежа</th>
                 <th>Дата создания отчёта</th>
                 <th>Дата операции</th>
+                <!-- <th>Статья списание</th> -->
                 <th>Статус</th>
                 <th>Чек</th>
             </tr>
@@ -58,6 +59,9 @@
                     <td>{{ all_operation.description }}</td>
                     <td>{{ all_operation.created|date:"Y-m-d" }} г.</td>
                     <td>{{ all_operation.during_period|date:"Y-m-d" }} г.</td>
+                    <!-- <td>
+                        {{ all_operation.undisclosed }}
+                    </td> -->
                     <td class="{% if all_operation.status == 1 %} color_positive_deal
                                {% elif all_operation.status == 0 %} color_warning_new
                                {% else %} color_rejected_new {% endif %}">

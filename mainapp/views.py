@@ -45,7 +45,7 @@ def home(request):
 
             name_image = ('За__' + during_period.strftime('%d.%m.%Y') + '__'
                           + request.user.last_name + '_' + request.user.first_name[0] + '.__'
-                          + form.cleaned_data['description'] + ' ')
+                          + form.cleaned_data['description'] + '__' + form.cleaned_data['value'] + '_руб_')
 
             if operation.deal_name:
                 name_image += operation.deal_name
@@ -120,8 +120,9 @@ def verify_report(request, operation_id):
     form_data = {
         'deal_name': operation.selectedDealName,
         'value': operation.value,
-        'description': operation.description,
-        'during_period': operation.during_period,
+        # 'description': operation.description,
+        # 'during_period': operation.during_period,
+        'undisclosed': operation.undisclosed,
         'partnerId': operation.counterparty,
     }
     try:
