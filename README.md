@@ -32,14 +32,12 @@
    :white_check_mark: Поисковая строка<br>
    :white_check_mark: Фильтрация<br>
    :white_check_mark: Изменение статуса отчёта<br>
+   :white_check_mark: Подтверждение или отклонение отчёта Админом<br>
    :white_check_mark: Оправка данных отчёта по API в ФинТабло<br>
    :white_check_mark: Оправка изображения по API на Я-Диск 
    (название картинки будет зависеть, от того что пользователь ввёл в форму)<br>
+   :white_check_mark: Адаптация сайта под мобильные устройства<br>
 <hr>   
-
-   <h4>Works:</h4>
-   :black_square_button: Адаптация сайта под мобильные устройства<br>
-<hr>
 
    <h4>Not ready:</h4>
    :negative_squared_cross_mark: Редактирования отчётов<br>
