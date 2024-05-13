@@ -48,7 +48,20 @@ def get_list_counterparty():
 
 
 def get_list_articles():
-    return get_data_from_api('category')
+    categories = get_data_from_api('category')
+    filtered_categories = [
+        "Закупка сырья и услуг субподрядчиков",
+        "Закупки",
+        "Командировочные расходы по проектам",
+        "Комиссия по объектам",
+        "Разработка ПО"
+    ]
+    result = []
+
+    for category in categories:
+        if category['name'] in filtered_categories:
+            result.append({'id': category['id'], 'name': category['name']})
+    return result
 
 
 def add_outcome(request, form_data, moneybag_id, description, during_period):
@@ -119,25 +132,50 @@ def send_query_ya_disk(url, params):
     return response.json() if response.ok else {'error': 'Не удалось получить URL-адрес для загрузки'}
 
 
+# def admin_search_reports(request):
+#     """
+#     Поиск отчётов
+#     :param request:
+#     :return: Отчёт
+#     """
+#     search_query = ''
+#
+#     if request.GET.get('search_query'):
+#         search_query = request.GET.get('search_query')
+#
+#         data_operations = Operations.objects.distinct().filter(
+#             Q(deal_name__icontains=search_query.lower()) |
+#             Q(value__icontains=search_query) |
+#             Q(description__icontains=search_query.lower()) |
+#             Q(user__first_name__icontains=search_query) |
+#             Q(during_period__icontains=search_query)
+#         )
+#     else:
+#         data_operations = Operations.objects.all()
+#     return search_query, data_operations
+
+
 def admin_search_reports(request):
     """
     Поиск отчётов
     :param request:
     :return: Отчёт
     """
-    search_query = ''
+    search_query = request.GET.get('search_query', '')
+    all_operations = Operations.objects.all().order_by('status', 'created')
 
-    if request.GET.get('search_query'):
-        search_query = request.GET.get('search_query')
-
-        data_operations = Operations.objects.distinct().filter(
+    if search_query:
+        data_operations = all_operations.filter(
             Q(deal_name__icontains=search_query.lower()) |
             Q(value__icontains=search_query) |
+            Q(selectedDealCounterparty__icontains=search_query.lower()) |
             Q(description__icontains=search_query.lower()) |
             Q(user__first_name__icontains=search_query) |
             Q(during_period__icontains=search_query)
         )
+        return search_query, data_operations
     else:
-        data_operations = Operations.objects.all()
-    return search_query, data_operations
+        return '', all_operations
+
+
 

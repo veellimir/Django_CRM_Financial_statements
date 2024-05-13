@@ -36,6 +36,8 @@ a {color: var(--white);}
     animation-name: fadeIn;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
+    border-radius: 17px;
+    text-align: center;
 }
 
 @keyframes fadeIn {
@@ -498,6 +500,14 @@ header {
     .wrapper-titlte_main h2 {
         width: 250px;
         margin: 20px auto;
+    }
+}
+@media screen and (max-height: 850px) {
+    .wrapper-section {
+        height: 614px;
+    }
+    .form-operation_group label {
+        margin: 5px 0 5px;
     }
 }
 

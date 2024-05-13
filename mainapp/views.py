@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models import Q
 from django.contrib import messages
 from urllib.parse import unquote
 
@@ -96,7 +97,7 @@ def all_reports(request, endpoint):
     """
     page = endpoint
 
-    all_operations = Operations.objects.all().order_by('-status')
+    all_operations = Operations.objects.all().order_by('-status', '-created')
     search_query, all_operations = admin_search_reports(request)
 
     context = {
@@ -120,8 +121,6 @@ def verify_report(request, operation_id):
     form_data = {
         'deal_name': operation.selectedDealName,
         'value': operation.value,
-        # 'description': operation.description,
-        # 'during_period': operation.during_period,
         'undisclosed': operation.undisclosed,
         'partnerId': operation.counterparty,
     }
