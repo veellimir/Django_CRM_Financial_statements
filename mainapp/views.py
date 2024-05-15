@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.db.models import Q
+from django.db.models import Case, IntegerField, Value, When
 from django.contrib import messages
 from urllib.parse import unquote
 
@@ -76,13 +76,21 @@ def home(request):
 @user_passes_test(lambda u: not u.is_superuser, login_url='all_reports')
 @login_required(login_url='login')
 def reports_user(request):
-    user_reports = Operations.objects.filter(user=request.user).order_by('-status')
-    search_query, user_operations = admin_search_reports(request)
+    user_reports = Operations.objects.filter(
+        user_id=request.user.id
+    ).annotate(
+        custom_order=Case(
+            When(status=Operations.NEW_REPORT, then=Value(0)),
+            When(status=Operations.REJECTED, then=Value(1)),
+            When(status=Operations.VERIFY_REPORT, then=Value(2)),
+            output_field=IntegerField(),
+        )
+    ).order_by('custom_order', '-created')
 
     context = {
         'title': 'Мои отчёты',
-        'user_operations': user_operations,
-        'search_query': search_query
+        'user_operations': user_reports,
+        # 'search_query': search_query
     }
     return render(request, 'mainapp/reports_users.html', context)
 
@@ -95,9 +103,10 @@ def all_reports(request, endpoint):
     :param endpoint:
     :return: Отфильтрованный список отчётов:
     """
+    current_user = 'user_admin'
     page = endpoint
 
-    all_operations = Operations.objects.all().order_by('-status', '-created')
+    all_operations = Operations.objects.all().order_by('-status', 'created')
     search_query, all_operations = admin_search_reports(request)
 
     context = {
