@@ -2,12 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib import auth, messages
 
 from .forms import UserLoginForm, UserRegisterForm
-from mainapp.utils import get_list_money
 
 
 def register_user(request):
     page = 'register'
-    get_list_money()
 
     if request.method == 'POST':
         form = UserRegisterForm(data=request.POST)
@@ -47,7 +45,7 @@ def login_user(request):
                     messages.success(request, f'Здравствуйте {user}')
                     return redirect('home')
             else:
-                messages.error(request, 'errr')
+                messages.error(request, 'Ошибка ввода данных')
     else:
         form = UserLoginForm()
 

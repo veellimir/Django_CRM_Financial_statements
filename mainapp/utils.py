@@ -132,29 +132,6 @@ def send_query_ya_disk(url, params):
     return response.json() if response.ok else {'error': 'Не удалось получить URL-адрес для загрузки'}
 
 
-# def admin_search_reports(request):
-#     """
-#     Поиск отчётов
-#     :param request:
-#     :return: Отчёт
-#     """
-#     search_query = ''
-#
-#     if request.GET.get('search_query'):
-#         search_query = request.GET.get('search_query')
-#
-#         data_operations = Operations.objects.distinct().filter(
-#             Q(deal_name__icontains=search_query.lower()) |
-#             Q(value__icontains=search_query) |
-#             Q(description__icontains=search_query.lower()) |
-#             Q(user__first_name__icontains=search_query) |
-#             Q(during_period__icontains=search_query)
-#         )
-#     else:
-#         data_operations = Operations.objects.all()
-#     return search_query, data_operations
-
-
 def admin_search_reports(request):
     """
     Поиск отчётов
@@ -170,7 +147,7 @@ def admin_search_reports(request):
             Q(value__icontains=search_query) |
             Q(selectedDealCounterparty__icontains=search_query.lower()) |
             Q(description__icontains=search_query.lower()) |
-            Q(user__first_name__icontains=search_query) |
+            Q(user__last_name__icontains=search_query.lower()) |
             Q(during_period__icontains=search_query)
         )
         return search_query, data_operations
