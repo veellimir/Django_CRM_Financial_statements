@@ -22,4 +22,5 @@
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
     "editor.rulers": [80],
+    "workbench.tree.indent": 24,
 }
