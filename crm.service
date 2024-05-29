@@ -1,0 +1,23 @@
+[Unit]
+Description = Intetix CRM @ %I
+After = network.target
+After = syslog.target
+
+StartLimitIntervalSec=500
+StartLimitBurst=5
+[Service]
+Restart=on-failure
+RestartSec=5s
+
+Type=simple
+WorkingDirectory = /home/%i/Django_CRM_Financial_statements
+User  = %i
+Group = %i
+ExecStart = /usr/bin/make IP=0.0.0.0 runserver
+
+[Install]
+WantedBy=multi-user.target
+
+# sudo systemctl daemon-reload
+# sudo systemctl enable  crm@dponyatov
+# sudo systemctl restart crm@dponyatov
