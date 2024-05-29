@@ -14,3 +14,4 @@ include/
 
 .env
 pyvenv.cfg
+share/

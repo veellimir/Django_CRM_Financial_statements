@@ -10,7 +10,7 @@ MY_TEST_HOST = os.getenv('MY_TEST_HOST')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-crm-financial-statements.onrender.com']
+ALLOWED_HOSTS = [MY_TEST_HOST,'django-crm-financial-statements.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
