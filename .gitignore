@@ -18,3 +18,4 @@ include/
 pyvenv.cfg
 share/
 db.sqlite3
+db.sqlite3
