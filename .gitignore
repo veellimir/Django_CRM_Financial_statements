@@ -3,6 +3,8 @@ __pycache__/
 venv
 .env
 .vscode
+db.sqlite3
+media
 
 node_modules
 lib64

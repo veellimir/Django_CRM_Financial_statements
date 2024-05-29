@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('', views.home, name='home'),
     path('my_report/', views.reports_user, name='user_report'),
+    path('intetix_users/', views.get_all_users, name='intetix_users'),
 
     path('all-reports/', views.all_reports, {'endpoint': 'all_reports'}, name='all_reports'),
     path('new-report/', views.all_reports, {'endpoint': 'new_report'}, name='new_report'),

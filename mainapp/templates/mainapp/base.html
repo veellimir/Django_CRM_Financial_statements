@@ -32,7 +32,9 @@
                         <li class="li_load_report"><a href="{% url 'home' %}">Загрузить отчёт</a></li>
                     {% endif %}
 
-                    <li class="logout"><a href="{% url 'logout' %}">Выйти</a></li>
+                    <li class="li_load_report"><a href="{% url 'intetix_users' %}">Пользователи</a></li>
+                    <li class="li_load_report"><a href="{% url 'all_reports' %}">все отчёты</a></li>
+                    <li class="li_load_report"><a href="{% url 'logout' %}">Выйти</a></li>
                 {% endif %}
             </ul>
         </nav>
