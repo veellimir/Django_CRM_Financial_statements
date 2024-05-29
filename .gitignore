@@ -17,3 +17,4 @@ include/
 .env
 pyvenv.cfg
 share/
+db.sqlite3
