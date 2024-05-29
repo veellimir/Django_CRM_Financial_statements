@@ -1,0 +1,28 @@
+{% extends 'mainapp/base.html' %}
+
+
+{% block content %}
+<div>
+    <div style="margin: 30px 0;">
+        <h1 class="title-h1_reports">Данные о счетах</h1>
+    </div>
+    <div class="wrapper--money_bag">
+        <table>
+            <thead>
+                <tr>
+                    <th>Владелец счёта</th>
+                    <th>ID для регистрации</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fin_tablo in users_fin_tablo %}
+                <tr class="tr-wrapper-reports">
+                    <td>{{ fin_tablo.name }}</td>
+                    <td>{{ fin_tablo.id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

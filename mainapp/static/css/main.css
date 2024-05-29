@@ -463,7 +463,11 @@ header {
 
 
 
-
+.wrapper--money_bag {
+    display: flex;
+    justify-content: center;
+    text-align: left;
+}
 
 
 @media screen and (max-width: 1050px) {

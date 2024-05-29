@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 from .models import Operations
 from .forms import OperationsForm
 from .utils import (get_list_deal, get_list_counterparty, get_list_articles, add_outcome,
-                    disk_resources_upload, admin_search_reports)
+                    disk_resources_upload, admin_search_reports, get_list_money)
 
 load_dotenv()
 
@@ -90,7 +90,6 @@ def reports_user(request):
     context = {
         'title': 'Мои отчёты',
         'user_operations': user_reports,
-        # 'search_query': search_query
     }
     return render(request, 'mainapp/reports_users.html', context)
 
@@ -177,3 +176,14 @@ def rejected_report(request, operation_id):
     messages.success(request, 'Отчёт отклонён')
     operation.save()
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required(login_url="login")
+def get_all_users(request):
+    users_fin_tablo = get_list_money()
+
+    context = {
+        'title': "Пользователи",
+        'users_fin_tablo': users_fin_tablo
+    }
+    return render(request, "mainapp/admin_users.html", context)

@@ -10,9 +10,7 @@ MY_TEST_HOST = os.getenv('MY_TEST_HOST')
 
 DEBUG = True
 
-
 ALLOWED_HOSTS = []
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
