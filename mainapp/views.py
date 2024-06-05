@@ -10,7 +10,7 @@ import datetime
 from dotenv import load_dotenv
 
 from .models import Operations
-from .forms import OperationsForm
+from .forms import OperationsForm, ReportCommentForm
 from .utils import (get_list_deal, get_list_counterparty, get_list_articles, add_outcome,
                     disk_resources_upload, admin_search_reports, get_list_money)
 
@@ -18,7 +18,7 @@ load_dotenv()
 
 
 @user_passes_test(lambda u: not u.is_superuser, login_url='all_reports')
-@login_required(login_url='login')
+@login_required
 def home(request):
     deal_names = get_list_deal()
     counterparty_names = get_list_counterparty()
@@ -74,7 +74,7 @@ def home(request):
 
 
 @user_passes_test(lambda u: not u.is_superuser, login_url='all_reports')
-@login_required(login_url='login')
+@login_required
 def reports_user(request):
     user_reports = Operations.objects.filter(
         user_id=request.user.id
@@ -94,7 +94,7 @@ def reports_user(request):
     return render(request, 'mainapp/reports_users.html', context)
 
 
-@login_required(login_url='login')
+@login_required
 def all_reports(request, endpoint):
     """
     Динамическая фильтрация
@@ -117,7 +117,7 @@ def all_reports(request, endpoint):
     return render(request, 'mainapp/all_reports.html', context)
 
 
-@login_required(login_url='login')
+@login_required
 def verify_report(request, operation_id):
     operation = Operations.objects.get(id=operation_id)
     operation.status = Operations.VERIFY_REPORT
@@ -149,17 +149,17 @@ def verify_report(request, operation_id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-@login_required(login_url='login')
+@login_required
 def new_report(request):
     return all_reports(request, 'new_report')
 
 
-@login_required(login_url='login')
+@login_required
 def verify_reports(request):
     return all_reports(request, 'verify_reports')
 
 
-@login_required(login_url='login')
+@login_required
 def delete_report(request, operation_id):
     operation = get_object_or_404(Operations, pk=operation_id)
 
@@ -168,17 +168,7 @@ def delete_report(request, operation_id):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-@login_required(login_url='login')
-def rejected_report(request, operation_id):
-    operation = Operations.objects.get(id=operation_id)
-    operation.status = Operations.REJECTED
-
-    messages.success(request, 'Отчёт отклонён')
-    operation.save()
-    return redirect(request.META.get('HTTP_REFERER'))
-
-
-@login_required(login_url="login")
+@login_required
 def get_all_users(request):
     users_fin_tablo = get_list_money()
 
@@ -187,3 +177,19 @@ def get_all_users(request):
         'users_fin_tablo': users_fin_tablo
     }
     return render(request, "mainapp/admin_users.html", context)
+
+
+@login_required
+def report_comment(request, operation_id):
+    operation = Operations.objects.get(id=operation_id)
+
+    if request.method == "POST":
+        form = ReportCommentForm(request.POST, instance=operation)
+        operation.status = Operations.REJECTED
+        messages.success(request, 'Отчёт отклонён')
+        form.save()
+
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        form = ReportCommentForm(instance=operation)
+    return render(request, 'mainapp/all_reports.html', {'form': form})

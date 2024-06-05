@@ -20,8 +20,8 @@ urlpatterns = [
     path('verify-reports/', views.all_reports, {'endpoint': 'verify_reports'}, name='verify_reports'),
 
     path('verify-report/<int:operation_id>/', views.verify_report, name='verify_report'),
-    path('rejected-report/<int:operation_id>/', views.rejected_report, name='rejected_report'),
     path('delete-report/<int:operation_id>/', views.delete_report, name='delete_report'),
+    path('comment-report/<int:operation_id>/', views.report_comment, name='report_comment'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

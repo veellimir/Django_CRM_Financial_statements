@@ -26,14 +26,14 @@
             <ul>
                 {% if user.is_authenticated %}
                     {% if user.is_superuser  %}
-                
+                        <li class="li_load_report"><a href="{% url 'intetix_users' %}">Пользователи</a></li>
+                        <li class="li_load_report"><a href="{% url 'all_reports' %}">все отчёты</a></li>
                     {% else %}
                         <li><a href="{% url 'user_report' %}">Мои отчёты</a></li>
                         <li class="li_load_report"><a href="{% url 'home' %}">Загрузить отчёт</a></li>
                     {% endif %}
 
-                    <li class="li_load_report"><a href="{% url 'intetix_users' %}">Пользователи</a></li>
-                    <li class="li_load_report"><a href="{% url 'all_reports' %}">все отчёты</a></li>
+                
                     <li class="li_load_report"><a href="{% url 'logout' %}">Выйти</a></li>
                 {% endif %}
             </ul>

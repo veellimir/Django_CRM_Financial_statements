@@ -39,3 +39,7 @@ class OperationsForm(forms.ModelForm):
             self.fields['moneybag_id'].initial = user.moneybag_id
 
 
+class ReportCommentForm(forms.ModelForm):
+    class Meta:
+        model = Operations
+        fields = ['rejected_comment']

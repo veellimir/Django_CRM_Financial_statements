@@ -73,6 +73,18 @@
                         alt="Изображения чека"
                         data-image="{{ all_operation.image_cheque.url }}">
                     </td>
+                
+                    <div class="wrapper-comment" id="modal-comment-{{ all_operation.id }}" style="display: none;">
+                        <div class="container_comment">
+                            <h3>Опишите причину отклонения отчёта</h3>
+                            <form action="{% url 'report_comment' operation_id=all_operation.id %}" method="post" class="comment-form">
+                                {% csrf_token %}
+                                <textarea class="textaria_comment_repotr" name="rejected_comment"></textarea>
+                                <input type="submit" value="Отклонить" class="btn__valid_reports" style="background: var(--warning);">
+                            </form>
+                        </div>
+                    </div>
+                
                     {% if all_operation.status == 0 %}
                     <td class="td-a-btn_wrapper">
                         <form action="{% url 'verify_report' all_operation.id %}" class="report_form" method="post">
@@ -84,18 +96,19 @@
                                 <h3>Отправляю отчёт</h3>
                             </div>
                         </form>
-                        <a href="{% url 'rejected_report' all_operation.id %}" class="btn__valid_reports" style="background: var(--warning);">Отклонить</a>
+                        <button class="btn__valid_reports" data-operation-id="{{ all_operation.id }}" style="background: var(--warning);">Отклонить</button>
                     </td>
                 </tr>
                     {% endif %}
                 {% endif %}
             {% endfor %}
         </table>
-        
    </div>
     <div class="modal_images" style="display: none;">
         <img id="modalImage" class="images_in_modal" src="" alt="Изображения чека">
     </div>
+
 </section>
+
 <script src="{% static 'js/modal_image.js' %}"></script>
 {% endblock %}

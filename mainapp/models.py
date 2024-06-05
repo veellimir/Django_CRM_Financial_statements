@@ -30,6 +30,7 @@ class Operations(models.Model):
     during_period = models.DateTimeField(blank=False, null=False, verbose_name='За период')
     created = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     status = models.SmallIntegerField(default=NEW_REPORT, choices=STATUSES)
+    rejected_comment = models.TextField(blank=True, null=True, verbose_name="Комментарий к отчёту")
 
     class Meta:
         verbose_name = 'отчёт'
