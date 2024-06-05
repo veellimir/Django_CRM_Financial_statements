@@ -60,13 +60,21 @@
                                 <img class="img_del_report" src="{% static 'mainapp/del.png' %}" alt="Удалить">
                             </button>
                         </form>
+                        {% if user_operation.rejected_comment %}
+                        <div class="modalComments" data-comment-id="comment-{{ forloop.counter }}">
+                            <img class="img_del_report modal_comment" src="{% static 'mainapp/comments.gif' %}" alt="Комментарий">
+                        </div>
+                        <div class="wrapper-modal_comment" style="display: none;" id="comment-{{ forloop.counter }}">
+                            <b style="color: red;">Внимания ! </b>{{ user_operation.rejected_comment }}
+                            <br><button class="btn_close_comment">Закрыть</button>
+                        </div>
+                        {% endif %}
                     </td>
                     {% endif %}
                 </tr>
             {% endfor %}
         </table>
         <div class="modal_images" style="display: none;">
-            <span class="close">&times;</span>
             <img id="modalImage" class="images_in_modal" src="" alt="Изображения чека">
         </div>
     </section>
